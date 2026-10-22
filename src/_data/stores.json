@@ -1,0 +1,68 @@
+[
+  {
+    "id": "sg-q7",
+    "name": "ReeUsed Quận 7",
+    "city": "TP. Hồ Chí Minh",
+    "address": "Số 68 Đường Sáng Tạo, Khu Công Nghệ Cao, Quận 7, TP. Hồ Chí Minh",
+    "phone": "0935 000 000",
+    "hours": "08:00 - 21:00 (Tất cả các ngày)",
+    "image": "/img/stores/sg-q7.webp",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=So+68+Duong+Sang+Tao+Khu+Cong+Nghe+Cao+Quan+7+TP+Ho+Chi+Minh",
+    "flagship": true
+  },
+  {
+    "id": "sg-td",
+    "name": "ReeUsed Thủ Đức",
+    "city": "TP. Hồ Chí Minh",
+    "address": "Số 12 Đường Võ Văn Ngân, Phường Linh Chiểu, TP. Thủ Đức, TP. Hồ Chí Minh",
+    "phone": "0935 000 001",
+    "hours": "08:00 - 21:00 (Tất cả các ngày)",
+    "image": "/img/stores/sg-td.webp",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=12+Vo+Van+Ngan+Linh+Chieu+Thu+Duc+TP+Ho+Chi+Minh",
+    "flagship": false
+  },
+  {
+    "id": "hn-cg",
+    "name": "ReeUsed Cầu Giấy",
+    "city": "Hà Nội",
+    "address": "Số 120 Đường Cầu Giấy, Quận Cầu Giấy, Hà Nội",
+    "phone": "0935 000 002",
+    "hours": "08:00 - 21:00 (Tất cả các ngày)",
+    "image": "/img/stores/hn-cg.webp",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=120+Cau+Giay+Cau+Giay+Ha+Noi",
+    "flagship": false
+  },
+  {
+    "id": "hn-hbt",
+    "name": "ReeUsed Hai Bà Trưng",
+    "city": "Hà Nội",
+    "address": "Số 45 Phố Huế, Quận Hai Bà Trưng, Hà Nội",
+    "phone": "0935 000 003",
+    "hours": "08:00 - 21:00 (Tất cả các ngày)",
+    "image": "/img/stores/hn-hbt.webp",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=45+Pho+Hue+Hai+Ba+Trung+Ha+Noi",
+    "flagship": false
+  },
+  {
+    "id": "dn-hc",
+    "name": "ReeUsed Hải Châu",
+    "city": "Đà Nẵng",
+    "address": "Số 45 Đường Lê Duẩn, Quận Hải Châu, Đà Nẵng",
+    "phone": "0935 000 004",
+    "hours": "08:00 - 21:00 (Tất cả các ngày)",
+    "image": "/img/stores/dn-hc.webp",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=45+Le+Duan+Hai+Chau+Da+Nang",
+    "flagship": false
+  },
+  {
+    "id": "ct-nk",
+    "name": "ReeUsed Ninh Kiều",
+    "city": "Cần Thơ",
+    "address": "Số 88 Đường 30 Tháng 4, Quận Ninh Kiều, Cần Thơ",
+    "phone": "0935 000 005",
+    "hours": "08:00 - 21:00 (Tất cả các ngày)",
+    "image": "/img/stores/ct-nk.webp",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=88+30+Thang+4+Ninh+Kieu+Can+Tho",
+    "flagship": false
+  }
+]

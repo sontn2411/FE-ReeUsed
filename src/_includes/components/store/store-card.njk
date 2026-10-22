@@ -1,0 +1,89 @@
+{% macro storeCard(store, class = "") %}
+  {% from "components/icon.njk" import icon %}
+  <article
+    class="group bg-white rounded-md border border-gray-100 hover:border-primary shadow-md hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden {{ class }}"
+  >
+    <!-- Ảnh cửa hàng -->
+    {% if store.image %}
+      <div class="relative w-full aspect-[4/3] bg-gray-100 overflow-hidden">
+        <img
+          src="{{ store.image }}"
+          alt="{{ store.name }}"
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          width="600"
+          height="450"
+          loading="lazy"
+          decoding="async"
+        >
+        {% if store.flagship %}
+          <span class="absolute top-2.5 left-2.5 inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-primary text-white shadow-xs">
+            Trụ sở chính
+          </span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="p-4 sm:p-5 flex flex-col flex-1">
+      <!-- Header: Tên + thành phố -->
+      <div class="mb-3">
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <h3 class="font-bold text-sm sm:text-base text-gray-900 truncate">
+            {{ store.name }}
+          </h3>
+          {% if store.flagship %}
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-primary text-white">
+              Trụ sở chính
+            </span>
+          {% endif %}
+        </div>
+        <p class="text-xs text-gray-500 mt-0.5">{{ store.city }}</p>
+      </div>
+
+      <!-- Thông tin liên hệ -->
+      <ul class="space-y-2 text-xs sm:text-sm text-gray-600 mb-4 flex-1">
+        <li class="flex items-start gap-2">
+          {{ icon("location", "w-4 h-4 text-gray-400 shrink-0 mt-0.5") }}
+          <span class="leading-snug">{{ store.address }}</span>
+        </li>
+        <li class="flex items-center gap-2">
+          {{ icon("phone", "w-4 h-4 text-gray-400 shrink-0") }}
+          <a
+            href="tel:{{ store.phone | replace(' ', '') }}"
+            class="font-medium text-gray-800 hover:text-primary transition-colors"
+          >
+            {{ store.phone }}
+          </a>
+        </li>
+        <li class="flex items-center gap-2">
+          {{ icon("clock", "w-4 h-4 text-gray-400 shrink-0") }}
+          <span>{{ store.hours }}</span>
+        </li>
+      </ul>
+
+      <!-- Hành động -->
+      <div class="flex items-center gap-2 mt-auto">
+        <a
+          href="{{ store.mapUrl }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex-1 btn-noise inline-flex items-center justify-center gap-1.5 bg-primary hover:bg-[#07332e] text-white text-xs sm:text-sm font-semibold py-2.5 rounded-xl transition-all duration-200 shadow-xs hover:shadow-md active:scale-[0.98]"
+        >
+          {{ icon("location", "w-3.5 h-3.5") }}
+          <span>Chỉ đường</span>
+        </a>
+        <a
+          href="tel:{{ store.phone | replace(' ', '') }}"
+          class="inline-flex items-center justify-center gap-1.5 bg-white text-primary border border-primary hover:bg-primary hover:text-white text-xs sm:text-sm font-semibold py-2.5 px-3 sm:px-4 rounded-xl transition-all duration-200 active:scale-[0.98]"
+        >
+          {{ icon("phone", "w-3.5 h-3.5") }}
+          <span>Gọi ngay</span>
+        </a>
+      </div>
+    </div>
+  </article>
+{% endmacro %}
+
+{# Hỗ trợ render trực tiếp khi include #}
+{%- if store -%}
+  {{ storeCard(store, class or "") }}
+{%- endif -%}
