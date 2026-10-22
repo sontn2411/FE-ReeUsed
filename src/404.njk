@@ -1,0 +1,67 @@
+---
+title: Không tìm thấy trang
+description: Trang bạn đang tìm kiếm không tồn tại hoặc đã được di chuyển. Hãy quay về trang chủ hoặc khám phá cửa hàng ReeUsed.
+layout: layouts/base.njk
+permalink: /404.html
+eleventyExcludeFromCollections: true
+robots: noindex, nofollow
+---
+
+{% from "components/icon.njk" import icon %}
+
+<section class="min-h-[60vh] flex items-center justify-center py-10 sm:py-16 relative">
+  <div class="w-full max-w-2xl text-center">
+    <!-- Mã lỗi 404 -->
+    <div class="relative inline-flex items-center justify-center mb-4 sm:mb-6">
+      <span class="absolute inset-0 bg-emerald-100 rounded-full blur-2xl opacity-70" aria-hidden="true"></span>
+      <span class="relative text-[80px] sm:text-[120px] leading-none font-black text-primary tracking-tighter select-none">
+        404
+      </span>
+    </div>
+
+    <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 mb-2 sm:mb-3">
+      Không tìm thấy trang này
+    </h1>
+
+    <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-md mx-auto mb-7 sm:mb-9">
+      Trang bạn đang tìm kiếm có thể đã bị di chuyển, đổi tên hoặc không còn tồn tại.
+      Đừng lo, bạn có thể quay về trang chủ hoặc tiếp tục khám phá đồ cũ giá tốt tại ReeUsed.
+    </p>
+
+    <!-- Liên kết điều hướng -->
+    <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 relative">
+      <a
+        href="/"
+        class="btn-noise inline-flex items-center justify-center gap-2 bg-primary text-white text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl hover:opacity-90 active:scale-[0.98] transition-all shadow-xs"
+      >
+        {{ icon("store", "w-4 h-4") }}
+        <span>Về trang chủ</span>
+      </a>
+      <a
+        href="/cua-hang/"
+        class="inline-flex items-center justify-center gap-2 bg-white text-primary border border-emerald-200 text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl hover:bg-emerald-50 active:scale-[0.98] transition-all"
+      >
+        {{ icon("package", "w-4 h-4") }}
+        <span>Xem cửa hàng</span>
+      </a>
+      <a
+        href="/lien-he/"
+        class="inline-flex items-center justify-center gap-2 bg-white text-slate-700 border border-gray-200 text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-xl hover:bg-gray-50 active:scale-[0.98] transition-all"
+      >
+        {{ icon("phone", "w-4 h-4") }}
+        <span>Liên hệ hỗ trợ</span>
+      </a>
+    </div>
+
+    <p class="text-xs text-slate-500 mt-6 sm:mt-8">
+      Cần hỗ trợ ngay? Gọi hotline
+      <a href="tel:{{ contact.hotline | replace(' ', '') }}" class="font-semibold text-primary hover:underline">
+        {{ contact.hotline }}
+      </a>
+      hoặc gửi email tới
+      <a href="mailto:{{ contact.email }}" class="font-semibold text-primary hover:underline">
+        {{ contact.email }}
+      </a>.
+    </p>
+  </div>
+</section>

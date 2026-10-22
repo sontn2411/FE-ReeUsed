@@ -1,5 +1,5 @@
-{% for item in footer.socials %}
-  {% set itemUrl = item.url or (('https://zalo.me/' ~ (footer.brand.hotline | replace(' ', ''))) if item.name == 'Zalo' and footer.brand and footer.brand.hotline else '') %}
+{% for item in contact.socials %}
+  {% set itemUrl = item.url or (('https://zalo.me/' ~ (contact.hotline | replace(' ', ''))) if item.name == 'Zalo' and contact.hotline else '') %}
   {% if itemUrl and item.icon %}
     <a
       href="{{ itemUrl }}"

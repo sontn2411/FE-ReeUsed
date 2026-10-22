@@ -13,16 +13,19 @@
         <a href="/" class="inline-flex items-center gap-2 mb-4 w-fit">
           <div class="bg-white/95 px-2.5 py-1.5 rounded-lg shadow-xs">
             <img
-              src="{{ footer.brand.logo }}"
-              alt="{{ footer.brand.name }} Logo"
+              src="{{ contact.logo }}"
+              alt="{{ contact.name }} Logo"
               class="h-7 w-auto object-contain"
+              width="96"
+              height="96"
+              loading="lazy"
             >
           </div>
         </a>
 
         <!-- Slogan & Description -->
         <p class="text-xs sm:text-sm text-gray-300/90 leading-relaxed mb-6 max-w-md">
-          {{ footer.brand.description }}
+          {{ contact.description }}
         </p>
 
         <!-- Contact Details -->
@@ -33,8 +36,8 @@
             </div>
             <div>
               <span class="text-gray-400 text-xs block">Hotline tư vấn</span>
-              <a href="tel:{{ footer.brand.hotline }}" class="font-bold text-white hover:text-emerald-400 transition-colors">
-                {{ footer.brand.hotline }}
+              <a href="tel:{{ contact.hotline | replace(' ', '') }}" class="font-bold text-white hover:text-emerald-400 transition-colors">
+                {{ contact.hotline }}
               </a>
             </div>
           </div>
@@ -45,8 +48,8 @@
             </div>
             <div>
               <span class="text-gray-400 text-xs block">Email liên hệ</span>
-              <a href="mailto:{{ footer.brand.email }}" class="font-medium text-white hover:text-emerald-400 transition-colors">
-                {{ footer.brand.email }}
+              <a href="mailto:{{ contact.email }}" class="font-medium text-white hover:text-emerald-400 transition-colors">
+                {{ contact.email }}
               </a>
             </div>
           </div>
@@ -56,16 +59,16 @@
               {{ icon("location", "w-4 h-4") }}
             </div>
             <span class="text-xs text-gray-300 leading-snug">
-              {{ footer.brand.address }}
+              {{ contact.address }}
             </span>
           </div>
         </div>
 
         <!-- Social Media Links: Tự động lặp theo dữ liệu, không hardcode -->
-        {% if footer.socials and footer.socials.length %}
+        {% if contact.socials and contact.socials.length %}
           <div class="flex items-center gap-3.5 mt-6">
-            {% for item in footer.socials %}
-              {% set itemUrl = item.url or (('https://zalo.me/' ~ (footer.brand.hotline | replace(' ', ''))) if item.name == 'Zalo' and footer.brand and footer.brand.hotline else '') %}
+            {% for item in contact.socials %}
+              {% set itemUrl = item.url or (('https://zalo.me/' ~ (contact.hotline | replace(' ', ''))) if item.name == 'Zalo' and contact.hotline else '') %}
               {% if itemUrl and item.icon %}
                 <a
                   href="{{ itemUrl }}"

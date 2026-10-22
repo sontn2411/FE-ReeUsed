@@ -4,19 +4,22 @@
 {% set banners = [
   {
     id: 1,
-    image: "/img/banner-01.png",
+    image: "/img/banner-01-1280.webp",
+    imageSmall: "/img/banner-01-768.webp",
     alt: "ReeUsed Banner 01",
     url: "/muon-ban/"
   },
   {
     id: 2,
-    image: "/img/banner-02.png",
+    image: "/img/banner-02-1280.webp",
+    imageSmall: "/img/banner-02-768.webp",
     alt: "ReeUsed Banner 02",
     url: "/cua-hang/"
   },
   {
     id: 3,
-    image: "/img/banner-03.png",
+    image: "/img/banner-03-1280.webp",
+    imageSmall: "/img/banner-03-768.webp",
     alt: "ReeUsed Banner 03",
     url: "/muon-mua/"
   }
@@ -39,9 +42,14 @@
           <a href="{{ item.url }}" class="block w-full h-full" aria-label="{{ item.alt }}">
             <img
               src="{{ item.image }}"
+              srcset="{{ item.imageSmall }} 768w, {{ item.image }} 1280w"
+              sizes="(max-width: 768px) 100vw, 1280px"
               alt="{{ item.alt }}"
+              width="1280"
+              height="423"
               class="w-full h-full object-cover object-center"
               {% if loop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
+              decoding="async"
             >
           </a>
         </div>

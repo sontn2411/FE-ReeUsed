@@ -1,10 +1,44 @@
 {#
   Component Contact Cards cho trang About / Liên hệ
-  Dữ liệu lấy từ about.contactCards trong src/_data/about.json
+  Toàn bộ thông tin (hotline, email, địa chỉ, mạng xã hội) lấy từ
+  nguồn dữ liệu duy nhất: src/_data/contact.json
 #}
 {% from "components/icon.njk" import icon %}
 
-{% set cards = about.contactCards if about and about.contactCards else [] %}
+{% set hotline = contact.hotline or "" %}
+{% set email = contact.email or "" %}
+
+{% set cards = [
+  {
+    type: "hotline",
+    icon: "phone",
+    title: "Hotline",
+    value: hotline,
+    url: "tel:" ~ (hotline | replace(" ", "")),
+    subtext: contact.hotlineNote
+  },
+  {
+    type: "email",
+    icon: "mail",
+    title: "Email",
+    value: email,
+    url: "mailto:" ~ email,
+    subtext: contact.emailNote
+  },
+  {
+    type: "address",
+    icon: "location",
+    title: "Địa chỉ",
+    value: contact.address,
+    subtext: contact.addressNote
+  },
+  {
+    type: "social",
+    title: "Theo dõi chúng tôi",
+    subtext: contact.socialNote,
+    socials: contact.socials
+  }
+] %}
 
 {% if cards and cards.length %}
 <section class="about-contact-section pb-10 sm:pb-16">

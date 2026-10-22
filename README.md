@@ -1,144 +1,130 @@
-# Minimal 11ty Starter
+# ReeUsed
 
-[![Screenshot of the Demo Website](https://github.com/tomreinert/minimal-11ty-tailwind-starter/assets/3286735/87949d5e-dc9a-4f12-bab0-b854f7e78dd0)](https://11ty-tailwind-starter.netlify.app)
+Website tĩnh cho nền tảng mua bán đồ cũ & thanh lý **ReeUsed**, xây dựng bằng
+[Eleventy 3](https://www.11ty.dev/) + [Nunjucks](https://mozilla.github.io/nunjucks/) + [Tailwind CSS 4](https://tailwindcss.com/).
 
-A *very* minimal [eleventy](https://11ty.io/) starter using [Tailwind CSS](https://tailwindcss.com/) for styling.
+## Yêu cầu
 
-It features a smart navigation component that sets active states automatically.
+- Node.js 18 trở lên
+- npm
 
-For beginners and/or when you need a simple static site and don't want to duplicate your navigation header and set active states for the nth time.
+## Cài đặt & chạy
 
-## Features
-🦴 As minimal as possible  
-⚡️ Active states in the navigation are automatically set based on the current url.  
-🌗 Dark/Light Mode Toggle  
-💨 Add a couple of lines to any page and it will appear in the navigation. (Check how to below)  
-🗓 A very simple blog structure because why not  
-🍪 Example for including json data on contact page  
-💜 Tailwind 4
-
-
-### [Live Demo](https://11ty-tailwind-starter.netlify.app)  
-
----
-
-## Getting Started
-
-
-#### 1. Clone this repo
-
-```
-git clone git@github.com:tomreinert/minimal-11ty-tailwind-starter.git mysite
-```
-#### 2. Change into the working directory
-
-```
-cd mysite
-```
-
-#### 3. Install dependencies
-
-```
+```bash
 npm install
 ```
 
-#### 4. Work locally
-Watches for changes and serves locally on http://localhost:8080
+Chạy môi trường phát triển (tự động reload tại http://localhost:8080):
 
-```
+```bash
 npm run serve
 ```
 
-#### 5. Create a production build
+Build bản production vào thư mục `_site`:
 
-```
+```bash
 npm run build
 ```
 
+Tối ưu lại toàn bộ hình ảnh (xem mục [Hình ảnh](#hình-ảnh)):
 
+```bash
+npm run images
+```
 
-## How To: Navigation
-
-The top navigation is the only *feature* in this starter and lives in `/src/_includes/components/navigation.njk`.  
-
-It looks for the eleventyNavigation object in pages and adds them to the navigation bar. It also checks whether the site's url is in the currently opened url and highlights the navigation item accordingly. This even works for subpages. So if you're on `/blog/post/` the **Blog** nav item will still be active.
-
-
-### Adding links to the navigation
-Add the `eleventyNavigation` object to any page and it will appear in the navigation. Optionally set the order of your items.
-Check the [11ty docs](https://www.11ty.dev/docs/plugins/navigation/) for more information about the navigation plugin.
+## Cấu trúc thư mục
 
 ```
+src/
+├── _data/                  # Toàn bộ nội dung dạng JSON
+│   ├── contact.json        # ⭐ NGUỒN DUY NHẤT cho hotline / email / địa chỉ / social
+│   ├── site.json           # SEO toàn site (tên, mô tả, URL, ảnh OG)
+│   ├── navLinks.json       # Menu điều hướng chính
+│   ├── footer.json         # Các cột link + copyright ở footer
+│   ├── categories.json     # Danh mục sản phẩm
+│   ├── newProducts.json    # Sản phẩm mới
+│   ├── saleProducts.json   # Sản phẩm giảm giá
+│   ├── testimonials.json   # Đánh giá khách hàng
+│   ├── about.json          # Nội dung trang giới thiệu / liên hệ
+│   ├── store.json          # Nội dung trang cửa hàng
+│   └── tradeBanners.json   # Banner thu mua / khám phá
+├── _includes/
+│   ├── layouts/            # Layout gốc (SEO, header, footer)
+│   └── components/         # Header, footer, nav, product-item, icon, form...
+├── img/                    # Hình ảnh đã tối ưu (được copy sang _site)
+├── _originals/             # Ảnh gốc dung lượng lớn (KHÔNG deploy, chỉ dùng để tối ưu)
+├── js/                     # main.js + smooth-scrollbar
+├── pages/                  # Các trang: cửa hàng, liên hệ, muốn bán, muốn mua
+├── styles/main.css         # Tailwind 4 + CSS tuỳ chỉnh
+├── index.njk               # Trang chủ
+├── 404.njk                 # Trang báo lỗi 404 (xuất ra /404.html)
+├── robots.njk              # Xuất ra /robots.txt
+└── sitemap.njk             # Xuất ra /sitemap.xml
+```
+
+## Quản lý nội dung
+
+Toàn bộ nội dung nằm trong `src/_data/*.json`, không hard-code trong template.
+
+### Thông tin liên hệ & thương hiệu
+
+`src/_data/contact.json` là **nguồn dữ liệu duy nhất** cho:
+
+- Tên, logo, mô tả thương hiệu
+- Hotline, email, địa chỉ, giờ làm việc
+- Danh sách chi nhánh
+- Mạng xã hội (Facebook, Zalo, TikTok)
+
+Chỉ cần sửa file này, mọi nơi hiển thị thông tin (top bar, footer, trang liên hệ,
+nút liên hệ nổi, trang 404) sẽ tự động cập nhật. Không sửa trực tiếp trong template.
+
+### Thêm trang mới
+
+Tạo file `.njk` trong `src/pages/`, khai báo front matter:
+
+```yaml
 ---
-eleventyNavigation:
-  key: Your Page Name
-  order: 1
+title: Tên trang
+layout: layouts/base.njk
+permalink: /duong-dan-mong-muon/
+description: Mô tả SEO cho trang (tuỳ chọn)
 ---
 ```
 
+Trang sẽ tự xuất hiện trong `sitemap.xml`. Nếu muốn thêm vào menu, cập nhật
+`src/_data/navLinks.json`.
 
-### Changing the navigation item styles
-The script in `/_includes/components/navigation.njk` checks if a navigation item is active and styles it accordingly.
-Let's dissect the code:
+## Hình ảnh
 
-```
-<a
-  href="{{ entry.url }}"
+Ảnh gốc dung lượng lớn được đặt trong `src/_originals/` (không được deploy).
+Script `scripts/optimize-images.mjs` dùng [sharp](https://sharp.pixelplumbing.com/)
+để tạo phiên bản WebP nhẹ hơn vào `src/img/` cho các ảnh banner, sản phẩm, icon,
+logo và tự sinh ảnh Open Graph `og-image.jpg` (1200x630).
 
-  // Base styles for all navigation items
-  class="uppercase text-sm py-1 px-2 rounded inline-block
-  
-  // Active navigation items
-  {% if (entry.url in page.url and entry.url != '/') or (page.url == '/' and entry.url == '/')  %}
-    bg-black text-white
-  
-  // Default navigation items
-  {% else %}
-    text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700
-  {% endif %}">
-  {{ entry.title }}
-</a>
+```bash
+npm run images
 ```
 
-## How to: Dark mode
+Quy trình khi thêm ảnh mới:
 
-As someone with limited development skills, it was harder than expected to implement a dark-light-mode toggle. So I dug into it and built it into the template.
-You can easily remove it if you don't need it.
+1. Đặt ảnh gốc vào `src/_originals/` (giữ cấu trúc thư mục nếu cần).
+2. Thêm cấu hình job vào `scripts/optimize-images.mjs`.
+3. Chạy `npm run images`.
+4. Trỏ template/data sang file `.webp` được tạo trong `src/img/`.
 
-Per default, the site takes the user's operating system preference.
+Luôn khai báo `width` / `height` và `loading="lazy"` cho ảnh ngoài màn hình đầu tiên
+để tránh layout shift.
 
-Once the user toggles the mode manually, it is saved to local storage and will override system preference. 
+## SEO
 
-You can add a button that forgets the manually selected mode. See line 50 in `navigation.njk`:
+- Meta title/description, canonical, Open Graph, Twitter Card và JSON-LD: `src/_includes/layouts/base.njk`
+- `sitemap.xml` tự sinh từ tất cả các trang (trừ 404)
+- `robots.txt` trỏ tới sitemap, chặn `/404.html`
+- Trang 404 nằm tại `/404.html` — được Netlify, Cloudflare Pages, Vercel và
+  GitHub Pages nhận diện tự động
 
-```
-<button id="forgetPref" onclick="forgetPref()">Forget</button>
-```
+## Triển khai
 
-If you don't need the dark mode toggle, do this:
-1. Remove the entire `<script>...</script>` from the head of `base.njk`
-2. Remove the entire `<button>...</button>` from `navigation.njk`
-3. Remove any classes that start with `dark:`from `base.njk` and `navigation.njk`
-
-
-
-## How To: Blog
-
-Add a page in `_src/blog/posts` and it will appear in the post list.
-
-## Images
-
-Put your images into `_src/img` and add them to your markup like so:
-```
-<img src="/img/example-image.jpg">
-```
-
-
-
-## Credits
-
-[Bryan L. Robinson](https://bryanlrobinson.com/blog/using-nunjucks-if-expressions-to-create-an-active-navigation-state-in-11ty/) for explaining how to create the active navigation state
-
-https://11ty.io/
-
-https://tailwindcss.com
+Chạy `npm run build` và deploy thư mục `_site` lên static hosting
+(Cloudflare Pages, Netlify, Vercel...). Build command: `npm run build`,
+output directory: `_site`.

@@ -1,18 +1,4 @@
 {
-  "brand": {
-    "name": "ReeUsed",
-    "logo": "/img/logo.png",
-    "description": "Nền tảng mua bán đồ cũ & thanh lý thiết bị công nghệ uy tín hàng đầu, cùng bạn lan tỏa lối sống xanh và tiết kiệm thông minh.",
-    "hotline": "0935 000 000",
-    "email": "hotro@reeused.vn",
-    "address": "Số 68 Đường Sáng Tạo, Khu Công Nghệ Cao, TP. Hồ Chí Minh",
-    "addresses": [
-      "Chi nhánh 1: Số 68 Đường Sáng Tạo, Khu Công Nghệ Cao, TP. Hồ Chí Minh",
-      "Chi nhánh 2: Số 120 Đường Cầu Giấy, Q. Cầu Giấy, Hà Nội",
-      "Chi nhánh 3: Số 45 Đường Lê Duẩn, Q. Hải Châu, Đà Nẵng"
-    ],
-    "workingHours": "08:00 - 21:00 (Tất cả các ngày)"
-  },
   "columns": [
     {
       "title": "Về ReeUsed",
@@ -61,24 +47,6 @@
           "url": "/cua-hang/?category=dong-ho-thong-minh"
         }
       ]
-    }
-  ],
-  "socials": [
-    {
-      "name": "Facebook",
-      "url": "https://facebook.com/reeused",
-      "icon": "/img/logo-facebook.svg"
-    },
-    {
-      "name": "Zalo",
-      "url": "https://zalo.me/0935000000",
-      "icon": "/img/icon-zalo.webp"
-    },
-    {
-      "name": "TikTok",
-      "url": "https://tiktok.com/@reeused",
-      "icon": "/img/logo-tiktok.svg",
-      "invert": true
     }
   ],
   "copyright": "© 2026 ReeUsed. Bản quyền thuộc về ReeUsed Platform. Lan tỏa lối sống xanh và bền vững."

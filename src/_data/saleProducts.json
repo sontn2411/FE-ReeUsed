@@ -6,7 +6,7 @@
     "price": "13.890.000₫",
     "originalPrice": "17.500.000₫",
     "discount": "-21%",
-    "image": "/img/products/iphone-13.jpg",
+    "image": "/img/products/iphone-13.webp",
     "location": "Hà Nội"
   },
   {
@@ -16,7 +16,7 @@
     "price": "16.490.000₫",
     "originalPrice": "21.900.000₫",
     "discount": "-25%",
-    "image": "/img/products/macbook-pro.jpg",
+    "image": "/img/products/macbook-pro.webp",
     "location": "TP. Hồ Chí Minh"
   },
   {
@@ -26,7 +26,7 @@
     "price": "3.850.000₫",
     "originalPrice": "5.500.000₫",
     "discount": "-30%",
-    "image": "/img/products/sony-headphone.jpg",
+    "image": "/img/products/sony-headphone.webp",
     "location": "Đà Nẵng"
   },
   {
@@ -36,7 +36,7 @@
     "price": "4.990.000₫",
     "originalPrice": "7.200.000₫",
     "discount": "-31%",
-    "image": "/img/products/apple-watch.jpg",
+    "image": "/img/products/apple-watch.webp",
     "location": "Hà Nội"
   },
   {
@@ -46,7 +46,7 @@
     "price": "7.690.000₫",
     "originalPrice": "10.500.000₫",
     "discount": "-27%",
-    "image": "/img/products/ipad-air.jpg",
+    "image": "/img/products/ipad-air.webp",
     "location": "TP. Hồ Chí Minh"
   },
   {
@@ -56,7 +56,7 @@
     "price": "38.900.000₫",
     "originalPrice": "49.000.000₫",
     "discount": "-21%",
-    "image": "/img/products/sony-camera.jpg",
+    "image": "/img/products/sony-camera.webp",
     "location": "Hà Nội"
   },
   {
@@ -66,7 +66,7 @@
     "price": "1.250.000₫",
     "originalPrice": "1.890.000₫",
     "discount": "-34%",
-    "image": "/img/products/keychron-k2.jpg",
+    "image": "/img/products/keychron-k2.webp",
     "location": "Hà Nội"
   },
   {
@@ -76,7 +76,7 @@
     "price": "3.990.000₫",
     "originalPrice": "5.700.000₫",
     "discount": "-30%",
-    "image": "/img/products/dell-monitor.jpg",
+    "image": "/img/products/dell-monitor.webp",
     "location": "TP. Hồ Chí Minh"
   },
   {
@@ -86,7 +86,7 @@
     "price": "1.490.000₫",
     "originalPrice": "2.200.000₫",
     "discount": "-32%",
-    "image": "/img/products/logitech-mouse.jpg",
+    "image": "/img/products/logitech-mouse.webp",
     "location": "Đà Nẵng"
   },
   {
@@ -96,7 +96,7 @@
     "price": "2.790.000₫",
     "originalPrice": "3.990.000₫",
     "discount": "-30%",
-    "image": "/img/products/marshall-speaker.jpg",
+    "image": "/img/products/marshall-speaker.webp",
     "location": "TP. Hồ Chí Minh"
   },
   {
@@ -106,7 +106,7 @@
     "price": "5.450.000₫",
     "originalPrice": "7.500.000₫",
     "discount": "-27%",
-    "image": "/img/products/nintendo-switch.jpg",
+    "image": "/img/products/nintendo-switch.webp",
     "location": "Hà Nội"
   },
   {
@@ -116,7 +116,7 @@
     "price": "2.190.000₫",
     "originalPrice": "3.200.000₫",
     "discount": "-32%",
-    "image": "/img/products/kindle-paperwhite.jpg",
+    "image": "/img/products/kindle-paperwhite.webp",
     "location": "Đà Nẵng"
   }
 ]

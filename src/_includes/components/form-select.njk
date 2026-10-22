@@ -81,11 +81,13 @@
       >
         <div class="flex items-center gap-2.5 truncate min-w-0 pr-2">
           <span class="custom-form-select-icon-wrapper flex items-center shrink-0 {% if not currentIcon %}hidden{% endif %}">
-            <img
-              src="{{ currentIcon }}"
-              alt=""
-              class="custom-form-select-active-icon w-4 h-4 object-contain"
-            />
+            {% if currentIcon %}
+              <img
+                src="{{ currentIcon }}"
+                alt=""
+                class="custom-form-select-active-icon w-4 h-4 object-contain"
+              />
+            {% endif %}
           </span>
           <span
             class="custom-form-select-label truncate text-sm transition-colors {% if not hasSelected %}text-slate-400{% else %}text-slate-800 font-medium{% endif %}"

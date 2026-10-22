@@ -2,14 +2,14 @@
 
 {# Xác định danh sách địa chỉ từ dữ liệu; nếu không có dữ liệu thì để mảng rỗng, TUYỆT ĐỐI không hard-code fallback #}
 {% set addressList = [] %}
-{% if footer.brand.addresses and footer.brand.addresses.length %}
-  {% set addressList = footer.brand.addresses %}
-{% elif footer.brand.address %}
-  {% set addressList = [footer.brand.address] %}
+{% if contact.addresses and contact.addresses.length %}
+  {% set addressList = contact.addresses %}
+{% elif contact.address %}
+  {% set addressList = [contact.address] %}
 {% endif %}
 
 {# Chỉ hiển thị Top Bar nếu có dữ liệu địa chỉ, hotline hoặc mạng xã hội #}
-{% if addressList.length or footer.brand.hotline or (footer.socials and footer.socials.length) %}
+{% if addressList.length or contact.hotline or (contact.socials and contact.socials.length) %}
 <!-- Top Announcement Bar (Static, doesn't stick with header) -->
 <div class="bg-primary text-white text-[11px] sm:text-xs py-1.5 sm:py-2 border-b border-emerald-950/20">
   <div class="container mx-auto px-2.5 sm:px-4 flex items-center justify-between gap-3">
@@ -35,28 +35,28 @@
     <div class="flex items-center gap-2.5 sm:gap-3 shrink-0 ml-auto">
       
       <!-- Số điện thoại (chỉ render khi có dữ liệu hotline) -->
-      {% if footer.brand.hotline %}
+      {% if contact.hotline %}
         <div class="flex items-center gap-1.5 text-emerald-100/90">
           {{ icon("phone", "w-3 h-3 text-emerald-300 shrink-0") }}
           <a
-            href="tel:{{ footer.brand.hotline | replace(' ', '') }}"
+            href="tel:{{ contact.hotline | replace(' ', '') }}"
             class="font-bold text-white hover:text-emerald-300 transition-colors tracking-wide"
           >
-            {{ footer.brand.hotline }}
+            {{ contact.hotline }}
           </a>
         </div>
       {% endif %}
 
       <!-- Đường phân cách nhẹ giữa số điện thoại và mạng xã hội -->
-      {% if footer.brand.hotline and footer.socials and footer.socials.length %}
+      {% if contact.hotline and contact.socials and contact.socials.length %}
         <span class="w-px h-3 bg-emerald-600/50" aria-hidden="true"></span>
       {% endif %}
 
       <!-- Icon các mạng xã hội -->
-      {% if footer.socials and footer.socials.length %}
+      {% if contact.socials and contact.socials.length %}
         <div class="flex items-center gap-2">
-          {% for item in footer.socials %}
-            {% set itemUrl = item.url or (('https://zalo.me/' ~ (footer.brand.hotline | replace(' ', ''))) if item.name == 'Zalo' and footer.brand and footer.brand.hotline else '') %}
+          {% for item in contact.socials %}
+            {% set itemUrl = item.url or (('https://zalo.me/' ~ (contact.hotline | replace(' ', ''))) if item.name == 'Zalo' and contact.hotline else '') %}
             {% if itemUrl and item.icon %}
               <a
                 href="{{ itemUrl }}"

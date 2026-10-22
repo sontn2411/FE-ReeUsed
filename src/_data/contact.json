@@ -1,16 +1,36 @@
 {
-    "items": [
-        {
-            "name": "test@example.com",
-            "link": "mailto:test@example.com"
-        },
-        {
-            "name": "GitHub",
-            "link": "https://github.com/…"
-        },
-        {
-            "name": "CodePen",
-            "link": "https://codepen.io/…"
-        }
-    ]
+  "name": "ReeUsed",
+  "logo": "/img/logo.webp",
+  "description": "Nền tảng mua bán đồ cũ & thanh lý thiết bị công nghệ uy tín hàng đầu, cùng bạn lan tỏa lối sống xanh và tiết kiệm thông minh.",
+  "hotline": "0935 000 000",
+  "hotlineNote": "08:00 - 21:00 (Tất cả các ngày)",
+  "email": "hotro@reeused.vn",
+  "emailNote": "Phản hồi trong vòng 24 giờ",
+  "address": "Số 68 Đường Sáng Tạo, Khu Công Nghệ Cao, TP. Hồ Chí Minh",
+  "addressNote": "Việt Nam",
+  "addresses": [
+    "Chi nhánh 1: Số 68 Đường Sáng Tạo, Khu Công Nghệ Cao, TP. Hồ Chí Minh",
+    "Chi nhánh 2: Số 120 Đường Cầu Giấy, Q. Cầu Giấy, Hà Nội",
+    "Chi nhánh 3: Số 45 Đường Lê Duẩn, Q. Hải Châu, Đà Nẵng"
+  ],
+  "workingHours": "08:00 - 21:00 (Tất cả các ngày)",
+  "socialNote": "Cập nhật tin mới, ưu đãi hấp dẫn",
+  "socials": [
+    {
+      "name": "Facebook",
+      "url": "https://facebook.com/reeused",
+      "icon": "/img/logo-facebook.svg"
+    },
+    {
+      "name": "Zalo",
+      "url": "https://zalo.me/0935000000",
+      "icon": "/img/icon-zalo.webp"
+    },
+    {
+      "name": "TikTok",
+      "url": "https://tiktok.com/@reeused",
+      "icon": "/img/logo-tiktok.svg",
+      "invert": true
+    }
+  ]
 }

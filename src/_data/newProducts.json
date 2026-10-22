@@ -4,7 +4,7 @@
     "name": "Bàn phím cơ không dây Keychron K2 V2",
     "category": "Phụ kiện máy tính",
     "price": "1.350.000₫",
-    "image": "/img/products/keychron-k2.jpg",
+    "image": "/img/products/keychron-k2.webp",
     "location": "Hà Nội"
   },
   {
@@ -12,7 +12,7 @@
     "name": "iPad Air 4 64GB Wifi Retina Display",
     "category": "Máy tính bảng",
     "price": "7.800.000₫",
-    "image": "/img/products/ipad-air.jpg",
+    "image": "/img/products/ipad-air.webp",
     "location": "TP. Hồ Chí Minh"
   },
   {
@@ -20,7 +20,7 @@
     "name": "Chuột không dây công thái học MX Master 3S",
     "category": "Chuột & Bàn phím",
     "price": "1.550.000₫",
-    "image": "/img/products/logitech-mouse.jpg",
+    "image": "/img/products/logitech-mouse.webp",
     "location": "Đà Nẵng"
   },
   {
@@ -28,7 +28,7 @@
     "name": "Loa Bluetooth Marshall Emberton II Chính Hãng",
     "category": "Loa & Âm thanh",
     "price": "2.890.000₫",
-    "image": "/img/products/marshall-speaker.jpg",
+    "image": "/img/products/marshall-speaker.webp",
     "location": "TP. Hồ Chí Minh"
   },
   {
@@ -36,7 +36,7 @@
     "name": "Máy chơi game cầm tay Nintendo Switch OLED",
     "category": "Máy chơi game",
     "price": "5.600.000₫",
-    "image": "/img/products/nintendo-switch.jpg",
+    "image": "/img/products/nintendo-switch.webp",
     "location": "Hà Nội"
   },
   {
@@ -44,7 +44,7 @@
     "name": "Máy đọc sách Kindle Paperwhite 5 (11th Gen)",
     "category": "Thiết bị đọc sách",
     "price": "2.250.000₫",
-    "image": "/img/products/kindle-paperwhite.jpg",
+    "image": "/img/products/kindle-paperwhite.webp",
     "location": "Cần Thơ"
   },
   {
@@ -52,7 +52,7 @@
     "name": "Màn hình Dell UltraSharp 24 inch IPS U2422H",
     "category": "Màn hình & PC",
     "price": "4.200.000₫",
-    "image": "/img/products/dell-monitor.jpg",
+    "image": "/img/products/dell-monitor.webp",
     "location": "TP. Hồ Chí Minh"
   },
   {
@@ -60,7 +60,7 @@
     "name": "iPhone 13 Pro Max 128GB Quốc Tế",
     "category": "Điện thoại",
     "price": "14.200.000₫",
-    "image": "/img/products/iphone-13.jpg",
+    "image": "/img/products/iphone-13.webp",
     "location": "Hà Nội"
   },
   {
@@ -68,7 +68,7 @@
     "name": "MacBook Pro 13 inch M1 8GB / 256GB",
     "category": "Máy tính & Laptop",
     "price": "16.800.000₫",
-    "image": "/img/products/macbook-pro.jpg",
+    "image": "/img/products/macbook-pro.webp",
     "location": "Đà Nẵng"
   },
   {
@@ -76,7 +76,7 @@
     "name": "Tai nghe chống ồn Sony WH-1000XM4 Black",
     "category": "Phụ kiện & Âm thanh",
     "price": "3.950.000₫",
-    "image": "/img/products/sony-headphone.jpg",
+    "image": "/img/products/sony-headphone.webp",
     "location": "Hà Nội"
   },
   {
@@ -84,7 +84,7 @@
     "name": "Apple Watch Series 7 45mm GPS Midnight",
     "category": "Đồng hồ thông minh",
     "price": "5.100.000₫",
-    "image": "/img/products/apple-watch.jpg",
+    "image": "/img/products/apple-watch.webp",
     "location": "TP. Hồ Chí Minh"
   },
   {
@@ -92,7 +92,7 @@
     "name": "Máy ảnh Sony Alpha A7 IV Mirrorless Body",
     "category": "Máy ảnh & Quay phim",
     "price": "39.500.000₫",
-    "image": "/img/products/sony-camera.jpg",
+    "image": "/img/products/sony-camera.webp",
     "location": "Hà Nội"
   }
 ]

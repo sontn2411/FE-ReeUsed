@@ -24,8 +24,8 @@
     <meta name="msapplication-TileColor" content="{{ site.themeColor or '#0a433c' }}">
 
     {# Favicon & Icons #}
-    <link rel="icon" type="image/png" href="/img/logo.png">
-    <link rel="apple-touch-icon" href="/img/logo.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 
     {# Open Graph / Facebook #}
     <meta property="og:type" content="{{ ogType or 'website' }}">
@@ -34,6 +34,9 @@
     <meta property="og:url" content="{{ canonicalUrl }}">
     <meta property="og:site_name" content="{{ site.name }}">
     <meta property="og:image" content="{{ metaImage }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:alt" content="{{ pageTitle }}">
     <meta property="og:locale" content="{{ site.locale or 'vi_VN' }}">
 

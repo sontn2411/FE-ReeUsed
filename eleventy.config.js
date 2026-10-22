@@ -1,8 +1,6 @@
-const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 const tailwindcss = require("eleventy-plugin-tailwindcss-4");
 
 module.exports = function (eleventyConfig) {
-  eleventyConfig.addPlugin(eleventyNavigationPlugin);
   eleventyConfig.addPassthroughCopy("src/img");
   eleventyConfig.addPassthroughCopy("src/js");
 
@@ -31,6 +29,11 @@ module.exports = function (eleventyConfig) {
     return DateTime.fromJSDate(dateObj, {
       zone: "utc",
     }).toFormat("dd-MM-yy");
+  });
+
+  // ISO 8601 date for sitemap <lastmod>
+  eleventyConfig.addFilter("isoDate", (dateObj) => {
+    return new Date(dateObj).toISOString();
   });
 
   return {
