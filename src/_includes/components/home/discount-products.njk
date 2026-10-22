@@ -32,9 +32,9 @@
   </div>
 
   <!-- Products Grid: 6 items per row on desktop (md:grid-cols-6), 3 on tablet, 2 on mobile -->
-  <div class="relative z-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4">
+  <div class="relative z-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 sm:gap-4">
     {% for product in saleProducts.slice(0, 12) %}
-      {{ productItem(product, badgeType="discount") }}
+      {{ productItem(product, badgeType="discount", class=("hidden sm:block" if loop.index > 6 else "")) }}
     {% endfor %}
   </div>
 </section>

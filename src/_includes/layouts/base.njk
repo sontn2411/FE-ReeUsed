@@ -82,7 +82,7 @@
     </div>
 
     <!-- Smooth Scrollbar Container -->
-    <div id="main" class="h-screen w-full overflow-hidden">
+    <div id="main" class="h-screen w-full overflow-y-auto scroll-smooth">
       <!-- Original Header: Natural flow header at page top -->
       <div id="original-header" class="w-full bg-white">
         <!-- Top Announcement Bar: Chứa địa chỉ & số điện thoại, không dính khi cuộn -->
@@ -109,7 +109,6 @@
       {% include "../components/back-to-top.njk" %}
     </div>
 
-    <script src="/js/smooth-scrollbar.js"></script>
     <script src="/js/main.js"></script>
     {% if extraJs %}
       <script src="{{ extraJs }}"></script>

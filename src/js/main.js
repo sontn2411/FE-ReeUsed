@@ -3,9 +3,6 @@ function isMobileView() {
   return window.innerWidth < 768;
 }
 
-// --- Smooth Scrollbar & Sticky Header Initialization ---
-var Scrollbar = window.Scrollbar;
-var scrollbar = null;
 var originalHeader = document.querySelector("#original-header");
 var stickyHeader = document.querySelector("#sticky-header");
 var isSticky = false;
@@ -48,20 +45,8 @@ if (stickyNavbarCollapse) {
   });
 }
 
-if (Scrollbar && document.querySelector("#main")) {
-  var mainEl = document.querySelector("#main");
-  // Hủy instance cũ nếu đã tồn tại khi live reload, tránh rò rỉ bộ nhớ và lag cuộn
-  if (Scrollbar.has(mainEl)) {
-    try {
-      Scrollbar.destroy(mainEl);
-    } catch (err) {}
-  }
-
-  scrollbar = Scrollbar.init(mainEl, {
-    damping: 0.16,
-    alwaysShowTracks: false,
-  });
-
+var mainEl = document.querySelector("#main");
+if (mainEl) {
   // Cache header height to prevent forced synchronous reflow (layout thrashing) on every scroll frame
   var cachedHeaderHeight = originalHeader ? originalHeader.offsetHeight : 120;
   if (!window.__HEADER_RESIZE_INIT__) {
@@ -69,23 +54,6 @@ if (Scrollbar && document.querySelector("#main")) {
     window.addEventListener("resize", function () {
       cachedHeaderHeight = originalHeader ? originalHeader.offsetHeight : 120;
     });
-  }
-
-  // Tự động phát hiện nếu live-reload / Morphdom can thiệp làm hỏng cấu trúc Scrollbar khi đang chạy dev:
-  if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-    if (!window.__MORPHDOM_GUARD_INIT__) {
-      window.__MORPHDOM_GUARD_INIT__ = true;
-      if (mainEl && window.MutationObserver) {
-        var domObserver = new MutationObserver(function () {
-          // SmoothScrollbar luôn bọc phần tử con trong .scroll-content
-          // Nếu live reload/Morphdom xóa mất .scroll-content mà Scrollbar vẫn còn đang chạy trong RAM:
-          if (!mainEl.querySelector(".scroll-content")) {
-            window.location.reload();
-          }
-        });
-        domObserver.observe(mainEl, { childList: true });
-      }
-    }
   }
 
   function getThresholds() {
@@ -102,8 +70,8 @@ if (Scrollbar && document.querySelector("#main")) {
   var lastProgressVal = -1;
   var isStickyVisible = false;
 
-  scrollbar.addListener(function (status) {
-    var y = status.offset.y;
+  function handleMainScroll() {
+    var y = mainEl.scrollTop;
     var thresholds = getThresholds();
 
     // 1. Khi cuộn xuống quá ngưỡng: hiện sticky header
@@ -149,7 +117,7 @@ if (Scrollbar && document.querySelector("#main")) {
       }
     }
 
-    // 3. Nút Back-to-Top: Chỉ cập nhật DOM khi trạng thái thay đổi
+    // 3. Nút Back-to-Top
     if (backToTopBtn) {
       var shouldShowBtt = y > 300;
       if (shouldShowBtt !== isBttVisible) {
@@ -163,9 +131,8 @@ if (Scrollbar && document.querySelector("#main")) {
         }
       }
 
-      // Cập nhật vòng tròn tiến trình (chỉ cập nhật khi giá trị số nguyên thay đổi)
-      if (backToTopProgress && scrollbar) {
-        var maxScroll = scrollbar.limit.y;
+      if (backToTopProgress) {
+        var maxScroll = mainEl.scrollHeight - mainEl.clientHeight;
         if (maxScroll > 0) {
           var ratio = Math.min(1, Math.max(0, y / maxScroll));
           var progressOffset = Math.round(PROGRESS_CIRCUMFERENCE - ratio * PROGRESS_CIRCUMFERENCE);
@@ -176,47 +143,18 @@ if (Scrollbar && document.querySelector("#main")) {
         }
       }
     }
-  });
+  }
+
+  mainEl.addEventListener("scroll", handleMainScroll, { passive: true });
+  // Trạng thái ban đầu
+  handleMainScroll();
 
   // Handle Back-to-Top Click
   if (backToTopBtn) {
     backToTopBtn.addEventListener("click", function () {
-      if (scrollbar) {
-        scrollbar.scrollTo(0, 0, 600);
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+      mainEl.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
-
-  // Fallback for native scroll if Smooth Scrollbar is disabled
-  window.addEventListener("scroll", function () {
-    if (!scrollbar && backToTopBtn) {
-      var shouldShowBtt = window.scrollY > 300;
-      if (shouldShowBtt !== isBttVisible) {
-        isBttVisible = shouldShowBtt;
-        if (shouldShowBtt) {
-          backToTopBtn.classList.remove("opacity-0", "pointer-events-none", "translate-y-4");
-          backToTopBtn.classList.add("opacity-100", "pointer-events-auto", "translate-y-0");
-        } else {
-          backToTopBtn.classList.remove("opacity-100", "pointer-events-auto", "translate-y-0");
-          backToTopBtn.classList.add("opacity-0", "pointer-events-none", "translate-y-4");
-        }
-      }
-
-      if (backToTopProgress) {
-        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        if (maxScroll > 0) {
-          var ratio = Math.min(1, Math.max(0, window.scrollY / maxScroll));
-          var progressOffset = Math.round(PROGRESS_CIRCUMFERENCE - ratio * PROGRESS_CIRCUMFERENCE);
-          if (progressOffset !== lastProgressVal) {
-            lastProgressVal = progressOffset;
-            backToTopProgress.style.strokeDashoffset = progressOffset;
-          }
-        }
-      }
-    }
-  });
 }
 
 // --- Fix: Prevent Smooth Scrollbar from hijacking wheel events inside dropdown menus ---

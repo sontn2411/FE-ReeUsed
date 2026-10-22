@@ -41,7 +41,7 @@
     <!-- Product Content -->
     <div class="flex flex-col flex-1">
       <!-- Category & Location -->
-      <div class="flex items-center justify-between text-[11px] text-gray-400 mb-1">
+      <div class="hidden sm:flex items-center justify-between text-[11px] text-gray-400 mb-1">
         <span class="truncate max-w-[90px]">{{ product.category }}</span>
         {% if product.location %}
           <span class="inline-flex items-center gap-0.5 text-gray-500 shrink-0">
@@ -78,13 +78,13 @@
         <div class="flex items-center gap-1.5 pt-2 border-t border-gray-100/80">
           <button
             type="button"
-            class="flex-1 btn-noise bg-primary hover:bg-[#07332e] text-white text-[11px] sm:text-xs font-semibold py-1.5 sm:py-2 px-2 rounded-xl text-center transition-all duration-200 shadow-xs hover:shadow-md active:scale-[0.98] cursor-pointer"
+            class="flex-1 btn-noise bg-primary hover:bg-[#07332e] text-white text-[11px] sm:text-xs font-semibold py-2.5 sm:py-3 px-2 rounded-xl text-center transition-all duration-200 shadow-xs hover:shadow-md active:scale-[0.98] cursor-pointer min-h-[44px]"
           >
             Mua ngay
           </button>
           <button
             type="button"
-            class="w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-xl  hover:bg-emerald-100 text-primary border border-emerald-100/80 flex items-center justify-center transition-all duration-200 active:scale-95 cursor-pointer shrink-0"
+            class="w-11 h-11 rounded-xl hover:bg-emerald-100 text-primary border border-emerald-100/80 flex items-center justify-center transition-all duration-200 active:scale-95 cursor-pointer shrink-0 min-h-[44px] min-w-[44px]"
             title="Thêm vào giỏ hàng"
             aria-label="Thêm vào giỏ hàng"
           >
