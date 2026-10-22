@@ -1,0 +1,284 @@
+{#
+  Component: Custom Select (Dropdown tùy biến hiện đại)
+  Thay thế thẻ select mặc định của trình duyệt bằng custom UI cao cấp:
+  - Menu nổi bo góc mềm mại, đổ bóng cao cấp
+  - Icon & emoji danh mục trực quan
+  - Dấu tích trạng thái đang chọn
+  - Tự động đóng khi chọn hoặc click ra ngoài
+  - Tích hợp sẵn input hidden để gửi form tìm kiếm chuẩn xác
+#}
+
+{%
+  macro select(
+    name = "category",
+    id = "",
+    options = [],
+    selected = "",
+    placeholder = "Tất cả",
+    dropdownTitle = "",
+    class = "",
+    wrapperClass = "",
+    showIcon = true
+  )
+%}
+  {% from "components/icon.njk" import icon %}
+
+  {# Dữ liệu options được truyền trực tiếp qua tham số của macro #}
+  {% set items = options or [] %}
+
+  {# Xác định label và icon đang chọn #}
+  {% set currentLabel = placeholder %}
+  {% set currentIcon = "" %}
+  {% for opt in items %}
+    {% if opt.value == selected %}
+      {% set currentLabel = opt.label %}
+      {% set currentIcon = opt.icon %}
+    {% endif %}
+  {% endfor %}
+
+  <details
+    class="relative custom-select group shrink-0 {{ wrapperClass }}"
+    {% if id %}
+      id="{{ id }}"
+    {% endif %}
+  >
+    {# Nút kích hoạt Dropdown (Trigger) #}
+    <summary class="list-none [&::-webkit-details-marker]:hidden flex items-center gap-1 sm:gap-2 bg-gray-50/90 hover:bg-gray-100/90 active:bg-gray-100 py-1.5 sm:py-2.5 pl-2 sm:pl-3.5 pr-1.5 sm:pr-2.5 rounded-l-md cursor-pointer select-none transition-all border-r border-gray-200 {{ class }}">
+      {# Hiển thị icon dạng ảnh nếu có hoặc icon bộ lọc #}
+      <span class="custom-select-icon-wrapper flex items-center shrink-0">
+        {% if currentIcon %}
+          <img
+            src="{{ currentIcon }}"
+            alt=""
+            class="custom-select-active-icon w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain"
+          >
+        {% elif showIcon %}
+          <span
+            class="custom-select-default-icon text-primary flex items-center"
+          >
+            {{ icon("filter", "w-3.5 h-3.5") }}
+          </span>
+        {% endif %}
+      </span>
+
+      <span
+        class="custom-select-label text-xs font-semibold text-gray-700 group-hover:text-primary transition-colors max-w-[52px] sm:max-w-[120px] truncate"
+      >
+        {{ currentLabel }}
+      </span>
+
+      <span
+        class="text-gray-400 group-hover:text-primary group-open:rotate-180 transition-transform duration-200 flex items-center shrink-0"
+      >
+        {{ icon("chevron-down", "w-3 h-3") }}
+      </span>
+    </summary>
+
+    {# Input hidden chứa giá trị thực sự cho form submit #}
+    <input
+      type="hidden"
+      name="{{ name }}"
+      value="{{ selected }}"
+      class="custom-select-input"
+    >
+
+    {# Menu Dropdown nổi (Floating Dropdown Panel) #}
+    <div class="absolute left-0 top-full mt-2 w-64 md:w-72 bg-white/95 backdrop-blur-md rounded-2xl shadow-[0_12px_40px_-8px_rgba(0,0,0,0.15)] border border-gray-100 p-2 z-50">
+      {% if dropdownTitle %}
+        <div class="px-3 py-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+          {{ dropdownTitle }}
+        </div>
+      {% endif %}
+
+      <div class="space-y-1 max-h-[40vh] overflow-y-auto overscroll-contain pr-1">
+        <button
+          type="button"
+          data-value=""
+          data-label="{{ placeholder or 'Tất cả' }}"
+          data-icon=""
+          class="custom-select-option w-full flex items-center justify-between px-3 py-2 text-xs font-medium rounded-xl transition-all cursor-pointer text-left {% if not selected %}bg-emerald-50 text-primary font-semibold{% else %}text-gray-700 hover:bg-gray-50 hover:text-primary{% endif %}"
+        >
+          <div class="flex items-center gap-2.5 truncate">
+            <span class="truncate">Tất cả danh mục</span>
+          </div>
+          {% if not selected %}
+            <svg
+              class="w-3.5 h-3.5 text-primary shrink-0 check-indicator"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          {% endif %}
+        </button>
+        {% for opt in items %}
+          {% set isSelected = (opt.value == selected) %}
+          <button
+            type="button"
+            data-value="{{ opt.value }}"
+            data-label="{{ opt.label }}"
+            data-icon="{{ opt.icon or '' }}"
+            class="custom-select-option w-full flex items-center justify-between px-3 py-2 text-xs font-medium rounded-xl transition-all cursor-pointer text-left {% if isSelected %}bg-emerald-50 text-primary font-semibold{% else %}text-gray-700 hover:bg-gray-50 hover:text-primary{% endif %}"
+          >
+            <div class="flex items-center gap-2.5 truncate">
+              {% if opt.icon %}
+                <img
+                  src="{{ opt.icon }}"
+                  alt="{{ opt.label }}"
+                  class="w-4 h-4 object-contain shrink-0"
+                  loading="lazy"
+                >
+              {% endif %}
+              <span class="truncate">{{ opt.label }}</span>
+            </div>
+
+            {% if isSelected %}
+              <svg
+                class="w-3.5 h-3.5 text-primary shrink-0 check-indicator"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            {% endif %}
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+  </details>
+
+  {# Script xử lý chọn item & đóng mở dropdown mượt mà #}
+  <script>
+  if (!window._customSelectInitialized) {
+  window._customSelectInitialized = true;
+
+  // Đóng tất cả dropdown khi click ra ngoài
+  document.addEventListener("click", function(e) {
+    document.querySelectorAll(".custom-select[open]").forEach(
+      function(dropdown) {
+        if (!dropdown.contains(e.target)) {
+          dropdown.removeAttribute("open");
+        }
+      },
+    );
+  });
+
+  // Xử lý khi click vào option
+  document.addEventListener("click", function(e) {
+    const optionBtn = e.target.closest(".custom-select-option");
+    if (!optionBtn) return;
+
+    const dropdown = optionBtn.closest(".custom-select");
+    if (!dropdown) return;
+
+    const value = optionBtn.getAttribute("data-value") || "";
+    const label = optionBtn.getAttribute("data-label") || "";
+
+    // 1. Cập nhật input hidden
+    const hiddenInput = dropdown.querySelector(".custom-select-input");
+    if (hiddenInput) {
+      hiddenInput.value = value;
+      hiddenInput.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    // 2. Cập nhật label và icon hiển thị trên nút bấm
+    const labelEl = dropdown.querySelector(".custom-select-label");
+    if (labelEl) {
+      labelEl.textContent = label;
+    }
+    const iconUrl = optionBtn.getAttribute("data-icon") || "";
+    const iconWrapper = dropdown.querySelector(".custom-select-icon-wrapper");
+    if (iconWrapper && iconUrl) {
+      iconWrapper.innerHTML =
+        `<img src="${iconUrl}" alt="" class="custom-select-active-icon w-4 h-4 object-contain">`;
+    }
+
+    // 3. Cập nhật style và dấu tích cho item được chọn
+    dropdown.querySelectorAll(".custom-select-option").forEach(function(btn) {
+      const isMatch = btn.getAttribute("data-value") === value;
+      if (isMatch) {
+        btn.classList.add("bg-emerald-50", "text-primary", "font-semibold");
+        btn.classList.remove("text-gray-700", "hover:bg-gray-50");
+
+        if (!btn.querySelector(".check-indicator")) {
+          const check = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg",
+          );
+          check.setAttribute(
+            "class",
+            "w-3.5 h-3.5 text-primary shrink-0 check-indicator",
+          );
+          check.setAttribute("fill", "none");
+          check.setAttribute("stroke", "currentColor");
+          check.setAttribute("viewBox", "0 0 24 24");
+          check.innerHTML =
+            "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2.5\" d=\"M5 13l4 4L19 7\" />";
+          btn.appendChild(check);
+        }
+      } else {
+        btn.classList.remove("bg-emerald-50", "text-primary", "font-semibold");
+        btn.classList.add("text-gray-700", "hover:bg-gray-50");
+        const check = btn.querySelector(".check-indicator");
+        if (check) check.remove();
+      }
+    });
+
+    // 4. Đồng bộ giá trị với các custom-select khác cùng name (ví dụ giữa original-header và sticky-header)
+    const selectName = hiddenInput ? hiddenInput.getAttribute("name") : null;
+    if (selectName) {
+      document.querySelectorAll('.custom-select-input[name="' + selectName + '"]').forEach(function(otherInput) {
+        if (otherInput !== hiddenInput) {
+          otherInput.value = value;
+          const otherDropdown = otherInput.closest(".custom-select");
+          if (otherDropdown) {
+            const otherLabel = otherDropdown.querySelector(".custom-select-label");
+            if (otherLabel) otherLabel.textContent = label;
+            const otherIconWrapper = otherDropdown.querySelector(".custom-select-icon-wrapper");
+            if (otherIconWrapper && iconUrl) {
+              otherIconWrapper.innerHTML = '<img src="' + iconUrl + '" alt="" class="custom-select-active-icon w-4 h-4 object-contain">';
+            }
+            otherDropdown.querySelectorAll(".custom-select-option").forEach(function(btn) {
+              const isMatch = btn.getAttribute("data-value") === value;
+              if (isMatch) {
+                btn.classList.add("bg-emerald-50", "text-primary", "font-semibold");
+                btn.classList.remove("text-gray-700", "hover:bg-gray-50");
+                if (!btn.querySelector(".check-indicator")) {
+                  const check = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                  check.setAttribute("class", "w-3.5 h-3.5 text-primary shrink-0 check-indicator");
+                  check.setAttribute("fill", "none");
+                  check.setAttribute("stroke", "currentColor");
+                  check.setAttribute("viewBox", "0 0 24 24");
+                  check.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />';
+                  btn.appendChild(check);
+                }
+              } else {
+                btn.classList.remove("bg-emerald-50", "text-primary", "font-semibold");
+                btn.classList.add("text-gray-700", "hover:bg-gray-50");
+                const check = btn.querySelector(".check-indicator");
+                if (check) check.remove();
+              }
+            });
+          }
+        }
+      });
+    }
+
+    // 5. Đóng dropdown
+    dropdown.removeAttribute("open");
+  });
+}
+  </script>
+{% endmacro %}

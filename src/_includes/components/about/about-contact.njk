@@ -1,0 +1,81 @@
+{#
+  Component Contact Cards cho trang About / Liên hệ
+  Dữ liệu lấy từ about.contactCards trong src/_data/about.json
+#}
+{% from "components/icon.njk" import icon %}
+
+{% set cards = about.contactCards if about and about.contactCards else [] %}
+
+{% if cards and cards.length %}
+<section class="about-contact-section pb-10 sm:pb-16">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
+    {% for card in cards %}
+      <div class="group bg-[#f0f7f3] rounded-2xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 ">
+        
+        <!-- Header Icon / Socials -->
+        <div>
+          {% if card.type == "social" %}
+            <!-- Danh sách mạng xã hội -->
+            <div class="flex items-center gap-2.5 sm:gap-3 mb-5 sm:mb-6">
+              {% for s in card.socials %}
+                <a
+                  href="{{ s.url }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="{{ s.name }}"
+                  title="{{ s.name }}"
+                  class="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200 shadow-2xs overflow-hidden {% if s.invert %}bg-black hover:bg-neutral-900{% endif %}"
+                >
+                  <img
+                    src="{{ s.icon }}"
+                    alt="{{ s.name }}"
+                    class="{% if s.invert %}w-5 h-5 sm:w-6 sm:h-6 invert{% else %}w-full h-full object-cover rounded-full{% endif %}"
+                    width="44"
+                    height="44"
+                    loading="lazy"
+                  />
+                </a>
+              {% endfor %}
+            </div>
+          {% else %}
+            <!-- Icon đơn lẻ (Hotline, Email, Địa chỉ) -->
+          <div class=" relative">
+              <div class="btn-noise w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-primary flex items-center justify-center text-white mb-5 sm:mb-6 shadow-xs">
+              {{ icon(card.icon, "w-5 h-5 text-white") }}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Content Info -->
+        <div class="flex flex-col">
+          <span class="text-xs sm:text-sm font-bold text-slate-800">
+            {{ card.title }}
+          </span>
+
+          {% if card.type == "hotline" %}
+            <a href="{{ card.url }}" class="text-base sm:text-lg font-extrabold text-primary hover:text-emerald-800 transition-colors mt-0.5 sm:mt-1 tracking-tight">
+              {{ card.value }}
+            </a>
+          {% elif card.type == "email" %}
+            <a href="{{ card.url }}" class="text-sm sm:text-base font-extrabold text-primary hover:text-emerald-800 transition-colors mt-0.5 sm:mt-1 truncate">
+              {{ card.value }}
+            </a>
+          {% elif card.type == "address" %}
+            <p class="text-xs sm:text-sm font-medium text-slate-700 mt-0.5 sm:mt-1 leading-snug">
+              {{ card.value }}
+            </p>
+          {% endif %}
+
+          {% if card.subtext %}
+            <p class="text-xs text-slate-500 mt-1 leading-normal font-normal">
+              {{ card.subtext }}
+            </p>
+          {% endif %}
+        </div>
+
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

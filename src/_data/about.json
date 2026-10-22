@@ -1,0 +1,89 @@
+{
+  "title": "Giới thiệu",
+  "breadcrumbTitle": "Giới thiệu",
+  "banner": {
+    "image": "/img/banner-about.png",
+    "alt": "Giới thiệu ReeUsed",
+    "title": "Kết nối người mua và người bán",
+    "titleHighlight": "vì một cộng đồng tiêu dùng bền vững",
+    "hasGradient": true,
+    "desc": "ReeUsed là nền tảng mua bán đồ cũ uy tín, giúp bạn dễ dàng tìm thấy những món đồ chất lượng với giá tốt, đồng thời góp phần giảm thiểu rác thải và bảo vệ môi trường.",
+    "stats": [
+      {
+        "icon": "shield-check",
+        "value": "100%",
+        "label": "Giao dịch an toàn"
+      },
+      {
+        "icon": "package",
+        "value": "50.000+",
+        "label": "Món đồ trao tay"
+      },
+      {
+        "icon": "heart",
+        "value": "Vì cộng đồng",
+        "label": "Cùng nhau tạo giá trị"
+      }
+    ]
+  },
+  "contactCards": [
+    {
+      "type": "hotline",
+      "icon": "phone",
+      "title": "Hotline",
+      "value": "1900 123 456",
+      "url": "tel:1900123456",
+      "subtext": "(8:00 - 22:00 hàng ngày)"
+    },
+    {
+      "type": "email",
+      "icon": "mail",
+      "title": "Email",
+      "value": "support@chodocu.vn",
+      "url": "mailto:support@chodocu.vn",
+      "subtext": "Phản hồi trong vòng 24 giờ"
+    },
+    {
+      "type": "address",
+      "icon": "location",
+      "title": "Địa chỉ",
+      "value": "123 Nguyễn Văn Cừ, Quận Long Biên,",
+      "subtext": "Hà Nội, Việt Nam"
+    },
+    {
+      "type": "social",
+      "title": "Theo dõi chúng tôi",
+      "subtext": "Cập nhật tin mới, ưu đãi hấp dẫn",
+      "socials": [
+        {
+          "name": "Facebook",
+          "url": "https://facebook.com/reeused",
+          "icon": "/img/logo-facebook.svg"
+        },
+        {
+          "name": "Zalo",
+          "url": "https://zalo.me/0935000000",
+          "icon": "/img/icon-zalo.webp"
+        },
+        {
+          "name": "TikTok",
+          "url": "https://tiktok.com/@reeused",
+          "icon": "/img/logo-tiktok.svg",
+          "invert": true
+        }
+      ]
+    }
+  ],
+  "contactForm": {
+    "title": "Gửi tin nhắn cho chúng tôi",
+    "subtitle": "Hãy để lại thông tin, chúng tôi sẽ liên hệ lại với bạn sớm nhất!",
+    "topics": [
+      "Tư vấn mua đồ cũ",
+      "Hỗ trợ đăng tin bán",
+      "Định giá & kiểm định chất lượng",
+      "Hợp tác & đóng góp ý kiến",
+      "Vấn đề tài khoản & thanh toán",
+      "Khác"
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{% from "components/icon.njk" import icon %}
+{% from "components/select.njk" import select %}
+
+<header class="w-full">
+  <!-- Main Header Row: Left Logo, Desktop Center Search, Right Action Buttons -->
+  <div class="flex items-center justify-between gap-1.5 sm:gap-3 md:gap-6">
+    <!-- Left Logo -->
+    <div class="flex items-center shrink-0">
+      <a href="/" class="inline-flex items-center">
+        <img
+          src="/img/logo.png"
+          alt="ReeUsed Logo"
+          class="h-7 sm:h-9 md:h-11 w-auto object-contain transition-transform duration-200 hover:opacity-90"
+        >
+      </a>
+    </div>
+
+    <!-- Desktop Center Search (Hidden on mobile, md+ only) -->
+    <div class="hidden md:flex flex-1 max-w-xl mx-1 sm:mx-2 min-w-0">
+      <form
+        action="/search"
+        method="get"
+        class="relative flex items-center w-full border border-gray-200 rounded-md bg-white shadow-xs hover:border-gray-300 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all"
+      >
+        <!-- Category Dropdown Select Component -->
+        {{ select(name="category", options=categories, dropdownTitle="Danh mục đồ cũ") }}
+
+        <!-- Keyword input field -->
+        <input
+          type="text"
+          name="q"
+          placeholder="Tìm đồ cũ giá tốt..."
+          class="w-full min-w-0 text-gray-800 text-xs sm:text-sm px-2.5 sm:px-3.5 py-1.5 sm:py-2 focus:outline-none placeholder:text-gray-400"
+        >
+
+        <!-- Search submit button -->
+        <button
+          type="submit"
+          aria-label="Tìm kiếm"
+          class="btn-noise bg-primary border border-primary text-white px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-r-md hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5 shrink-0 cursor-pointer"
+        >
+          {{ icon("search", "w-3.5 h-3.5 sm:w-4 sm:h-4") }}
+        </button>
+      </form>
+    </div>
+
+    <!-- Right Actions: Mobile Search Toggle, Hamburger, Login/Register & Cart -->
+    <div class="flex items-center gap-1 sm:gap-2 md:gap-3 shrink-0">
+      <!-- Mobile Search Toggle Button (Toggles input collapse below) -->
+      <button
+        type="button"
+        class="btn-noise mobile-search-toggle inline-flex md:hidden items-center justify-center p-1.5 sm:p-2 rounded-lg text-gray-700 hover:text-primary hover:bg-gray-100 transition-colors cursor-pointer select-none"
+        aria-label="Tìm kiếm"
+        title="Tìm kiếm"
+      >
+        <span class="icon-search-open flex items-center justify-center">
+          {{ icon("search", "w-5 h-5") }}
+        </span>
+        <span class="icon-search-close hidden items-center justify-center">
+          {{ icon("close", "w-5 h-5") }}
+        </span>
+      </button>
+
+      <!-- Hamburger Toggle Button (Mobile or Desktop Sticky Header) -->
+      <button
+        type="button"
+        class="btn-noise sticky-navbar-toggle inline-flex md:hidden items-center justify-center p-1.5 sm:p-2 rounded-lg text-gray-700 hover:text-primary hover:bg-gray-100 transition-colors cursor-pointer select-none"
+        aria-label="Mở danh mục điều hướng"
+        title="Danh mục menu"
+      >
+        <span class="icon-menu-open flex items-center justify-center">
+          {{ icon("menu", "w-5 h-5") }}
+        </span>
+        <span class="icon-menu-close hidden items-center justify-center">
+          {{ icon("close", "w-5 h-5") }}
+        </span>
+      </button>
+
+      <!-- Login / Register Button (Icon on mobile, full label on desktop) -->
+      <div class=" md:bg-primary rounded-md hover:opacity-95 transition-opacity relative">
+        <button
+          type="button"
+          class="btn-noise flex items-center justify-center p-1.5 sm:p-2 md:py-2 md:px-3.5 cursor-pointer gap-1.5 text-white"
+          aria-label="Đăng nhập / Đăng ký"
+          title="Đăng nhập / Đăng ký"
+        >
+          {{ icon("user", "w-4 h-4 md:text-white text-gray-700") }}
+          <span class="text-white text-xs font-medium whitespace-nowrap hidden md:inline">
+            Đăng nhập / Đăng ký
+          </span>
+        </button>
+      </div>
+
+      <!-- Shopping Cart Icon -->
+      <a
+        href="/cart/"
+        aria-label="Giỏ hàng"
+        class="relative p-1.5 sm:p-2 text-gray-700 hover:text-primary hover:bg-gray-100 rounded-md transition-all flex items-center justify-center cursor-pointer"
+      >
+        {{ icon("cart", "w-5 h-5 sm:w-6 sm:h-6") }}
+        <!-- Cart Items Count Badge -->
+        <span
+          class="absolute -top-0.5 -right-0.5 bg-primary text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center"
+        >
+          0
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Expandable Mobile Search Bar Collapse (Slides down on mobile search toggle) -->
+  <div class="mobile-search-collapse md:hidden">
+    <div class="mobile-search-inner pt-2 pb-0.5">
+      <form
+        action="/search"
+        method="get"
+        class="relative flex items-center w-full border border-gray-200 rounded-md bg-white shadow-xs hover:border-gray-300 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all"
+      >
+        <!-- Quick Category Select Dropdown -->
+        {{ select(name="category", options=categories, dropdownTitle="Danh mục") }}
+
+        <!-- Keyword input field -->
+        <input
+          type="text"
+          name="q"
+          placeholder="Tìm đồ cũ giá tốt..."
+          class="w-full min-w-0 text-gray-800 text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 sm:py-2 focus:outline-none placeholder:text-gray-400"
+        >
+
+        <!-- Search submit button -->
+        <button
+          type="submit"
+          aria-label="Tìm kiếm"
+          class="btn-noise bg-primary border border-primary text-white px-3 sm:px-4 py-2 rounded-r-md hover:opacity-90 transition-opacity flex items-center justify-center gap-1 shrink-0 cursor-pointer text-xs font-medium"
+        >
+          {{ icon("search", "w-3.5 h-3.5") }}
+        </button>
+      </form>
+    </div>
+  </div>
+</header>

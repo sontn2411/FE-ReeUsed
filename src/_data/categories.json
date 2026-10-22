@@ -1,0 +1,58 @@
+[
+  {
+    "value": "dien-thoai",
+    "label": "Điện thoại",
+    "icon": "/img/categories/phone.svg"
+  },
+  {
+    "value": "may-tinh-bang",
+    "label": "Máy tính bảng",
+    "icon": "/img/categories/tablet.svg"
+  },
+  {
+    "value": "may-tinh",
+    "label": "Máy tính",
+    "icon": "/img/categories/laptop.svg"
+  },
+  {
+    "value": "tai-nghe",
+    "label": "Tai nghe",
+    "icon": "/img/categories/headphones.svg"
+  },
+  { "value": "loa", "label": "Loa", "icon": "/img/categories/speaker.svg" },
+  {
+    "value": "dong-ho-thong-minh",
+    "label": "Đồng hồ thông minh",
+    "icon": "/img/categories/smartwatch.svg"
+  },
+  {
+    "value": "dong-ho",
+    "label": "Đồng hồ",
+    "icon": "/img/categories/watch.svg"
+  },
+  {
+    "value": "man-hinh-cu",
+    "label": "Màn hình cũ",
+    "icon": "/img/categories/monitor.svg"
+  },
+  {
+    "value": "phu-kien",
+    "label": "Phụ kiện",
+    "icon": "/img/categories/accessories.svg"
+  },
+  {
+    "value": "may-anh",
+    "label": "Máy ảnh",
+    "icon": "/img/categories/camera.svg"
+  },
+  {
+    "value": "may-choi-game",
+    "label": "Máy chơi game",
+    "icon": "/img/categories/gamepad.svg"
+  },
+  {
+    "value": "do-gia-dung",
+    "label": "Đồ gia dụng",
+    "icon": "/img/categories/home-appliances.svg"
+  }
+]

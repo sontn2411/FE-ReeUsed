@@ -1,0 +1,53 @@
+{% from "components/icon.njk" import icon %}
+
+{% set benefits = [
+  {
+    title: "Chất lượng",
+    subtitle: "Đã qua sử dụng không có nghĩa là chất lượng kém, mỗi sản phẩm đều được kiểm tra kỹ",
+    icon: "shield"
+  },
+  {
+    title: "Giá trị",
+    subtitle: "Mỗi sản phẩm đã qua sử dụng đều có giá trị riêng, đều được chúng tôi trân trọng",
+    icon: "box"
+  },
+  {
+    title: "Tiết kiệm",
+    subtitle: "Tái sử dụng là lối sống tiết kiệm và bền vững",
+    icon: "coin"
+  }
+] %}
+
+<section class="benefits-section bg-[#e5f3ea] rounded-md px-5 sm:px-8 lg:px-10 py-6 sm:py-7 lg:py-8 mb-8 sm:mb-10">
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8 lg:gap-10">
+    
+    <!-- Left Slogan: Leaves icon + "Cùng nhau lan tỏa lối sống xanh" (Expanded width & spacing) -->
+    <div class="flex items-center gap-4 sm:gap-5 shrink-0 md:w-[280px] lg:w-[320px] xl:w-[340px] md:pr-8 lg:pr-12 md:border-r border-[#c3e3cf] pb-4 md:pb-0 border-b md:border-b-0">
+      <img
+        src="/img/leaves.svg"
+        alt="Lối sống xanh"
+        class="w-12 h-12 sm:w-14 sm:h-14 lg:w-15 lg:h-15 object-contain shrink-0"
+      >
+      <div class="leading-tight select-none min-w-0">
+        <h2 class="font-bold text-base sm:text-lg lg:text-xl text-primary tracking-tight">Cùng nhau lan tỏa</h2>
+        <p class="font-bold text-base sm:text-lg lg:text-xl text-primary tracking-tight">lối sống xanh</p>
+      </div>
+    </div>
+
+    <!-- Right Items: Loop through benefits array using icon component -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-4 md:gap-6 lg:gap-8 flex-1 w-full">
+      {% for item in benefits %}
+        <div class="flex items-center justify-start md:justify-center gap-3.5">
+          <div class="w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-white/85 border border-[#cbe4d3] flex items-center justify-center shrink-0 shadow-xs">
+            {{ icon(item.icon, "w-6 h-6 text-primary") }}
+          </div>
+          <div class="leading-tight">
+            <div class="font-bold text-base sm:text-lg text-primary">{{ item.title }}</div>
+            <div class="text-xs sm:text-[13px] text-[#426b58] font-medium mt-0.5">{{ item.subtitle }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

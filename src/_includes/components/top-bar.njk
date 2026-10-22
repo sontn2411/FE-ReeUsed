@@ -1,0 +1,144 @@
+{% from "components/icon.njk" import icon %}
+
+{# Xác định danh sách địa chỉ từ dữ liệu; nếu không có dữ liệu thì để mảng rỗng, TUYỆT ĐỐI không hard-code fallback #}
+{% set addressList = [] %}
+{% if footer.brand.addresses and footer.brand.addresses.length %}
+  {% set addressList = footer.brand.addresses %}
+{% elif footer.brand.address %}
+  {% set addressList = [footer.brand.address] %}
+{% endif %}
+
+{# Chỉ hiển thị Top Bar nếu có dữ liệu địa chỉ, hotline hoặc mạng xã hội #}
+{% if addressList.length or footer.brand.hotline or (footer.socials and footer.socials.length) %}
+<!-- Top Announcement Bar (Static, doesn't stick with header) -->
+<div class="bg-primary text-white text-[11px] sm:text-xs py-1.5 sm:py-2 border-b border-emerald-950/20">
+  <div class="container mx-auto px-2.5 sm:px-4 flex items-center justify-between gap-3">
+    
+    <!-- Bên trái: Địa chỉ (chỉ render khi có dữ liệu địa chỉ) -->
+    {% if addressList.length %}
+      <div class="flex items-center gap-1.5 truncate text-emerald-100/90 min-w-0 flex-1">
+        {{ icon("location", "w-3.5 h-3.5 text-emerald-300 shrink-0") }}
+        
+        <div id="topbar-address-carousel" class="relative h-4 sm:h-5 overflow-hidden min-w-0 flex-1 select-none">
+          {% for addr in addressList %}
+            <div class="topbar-address-item {% if loop.first %}opacity-100 translate-y-0 relative{% else %}opacity-0 translate-y-3 absolute inset-0 pointer-events-none{% endif %} transition-all duration-500 ease-out truncate text-[11px] sm:text-xs leading-4 sm:leading-5" title="{{ addr }}">
+              {{ addr }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% else %}
+      <div></div>
+    {% endif %}
+
+    <!-- Bên phải: Số điện thoại & Icon mạng xã hội (Facebook, Zalo, TikTok) -->
+    <div class="flex items-center gap-2.5 sm:gap-3 shrink-0 ml-auto">
+      
+      <!-- Số điện thoại (chỉ render khi có dữ liệu hotline) -->
+      {% if footer.brand.hotline %}
+        <div class="flex items-center gap-1.5 text-emerald-100/90">
+          {{ icon("phone", "w-3 h-3 text-emerald-300 shrink-0") }}
+          <a
+            href="tel:{{ footer.brand.hotline | replace(' ', '') }}"
+            class="font-bold text-white hover:text-emerald-300 transition-colors tracking-wide"
+          >
+            {{ footer.brand.hotline }}
+          </a>
+        </div>
+      {% endif %}
+
+      <!-- Đường phân cách nhẹ giữa số điện thoại và mạng xã hội -->
+      {% if footer.brand.hotline and footer.socials and footer.socials.length %}
+        <span class="w-px h-3 bg-emerald-600/50" aria-hidden="true"></span>
+      {% endif %}
+
+      <!-- Icon các mạng xã hội -->
+      {% if footer.socials and footer.socials.length %}
+        <div class="flex items-center gap-2">
+          {% for item in footer.socials %}
+            {% set itemUrl = item.url or (('https://zalo.me/' ~ (footer.brand.hotline | replace(' ', ''))) if item.name == 'Zalo' and footer.brand and footer.brand.hotline else '') %}
+            {% if itemUrl and item.icon %}
+              <a
+                href="{{ itemUrl }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:scale-110 active:scale-95 transition-transform duration-150 inline-flex items-center justify-center"
+                aria-label="{{ item.name }}"
+                title="{{ item.name }}"
+              >
+                <img
+                  src="{{ item.icon }}"
+                  alt="{{ item.name }}"
+                  class="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain {% if not item.invert %}rounded-full shadow-xs{% else %}invert{% endif %}"
+                  width="16"
+                  height="16"
+                  loading="lazy"
+                />
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Script chuyển động luân phiên các địa chỉ (chỉ nạp khi có từ 2 địa chỉ trở lên) -->
+{% if addressList.length > 1 %}
+<script>
+(function() {
+  var carousel = document.getElementById("topbar-address-carousel");
+  if (!carousel) return;
+  
+  var items = carousel.querySelectorAll(".topbar-address-item");
+  if (items.length <= 1) return;
+
+  var currentIndex = 0;
+  var timer = null;
+
+  function showNext() {
+    var prev = items[currentIndex];
+    currentIndex = (currentIndex + 1) % items.length;
+    var next = items[currentIndex];
+
+    // Trượt item hiện tại lên trên và mờ dần
+    prev.classList.remove("opacity-100", "translate-y-0", "relative");
+    prev.classList.add("opacity-0", "-translate-y-3", "absolute", "pointer-events-none");
+
+    // Chuẩn bị item tiếp theo ở phía dưới
+    next.classList.remove("-translate-y-3");
+    next.classList.add("translate-y-3");
+    
+    // Kích hoạt animation trượt vào vị trí
+    requestAnimationFrame(function() {
+      next.classList.remove("opacity-0", "translate-y-3", "absolute", "pointer-events-none");
+      next.classList.add("opacity-100", "translate-y-0", "relative");
+    });
+  }
+
+  if (window.__topbarAddressTimer) {
+    clearInterval(window.__topbarAddressTimer);
+  }
+
+  function start() {
+    if (!window.__topbarAddressTimer) {
+      window.__topbarAddressTimer = setInterval(showNext, 3500);
+    }
+  }
+
+  function pause() {
+    if (window.__topbarAddressTimer) {
+      clearInterval(window.__topbarAddressTimer);
+      window.__topbarAddressTimer = null;
+    }
+  }
+
+  start();
+  carousel.addEventListener("mouseenter", pause);
+  carousel.addEventListener("mouseleave", start);
+})();
+</script>
+{% endif %}
+{% endif %}

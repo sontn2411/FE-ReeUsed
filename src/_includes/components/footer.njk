@@ -1,0 +1,130 @@
+{% from "components/icon.njk" import icon %}
+
+<!-- Main Footer -->
+<footer class="bg-[#072e29] text-gray-300 mt-12 sm:mt-16 border-t border-[#0d453e]">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-8">
+    
+    <!-- 4 Columns Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 pb-10">
+      
+      <!-- Cột 1: Thông tin thương hiệu (2 cols trên màn hình lớn) -->
+      <div class="lg:col-span-2 flex flex-col pr-0 lg:pr-6">
+        <!-- Logo -->
+        <a href="/" class="inline-flex items-center gap-2 mb-4 w-fit">
+          <div class="bg-white/95 px-2.5 py-1.5 rounded-lg shadow-xs">
+            <img
+              src="{{ footer.brand.logo }}"
+              alt="{{ footer.brand.name }} Logo"
+              class="h-7 w-auto object-contain"
+            >
+          </div>
+        </a>
+
+        <!-- Slogan & Description -->
+        <p class="text-xs sm:text-sm text-gray-300/90 leading-relaxed mb-6 max-w-md">
+          {{ footer.brand.description }}
+        </p>
+
+        <!-- Contact Details -->
+        <div class="space-y-2.5 text-xs sm:text-sm text-gray-300">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-950/80 border border-[#145a51] flex items-center justify-center text-emerald-400 shrink-0">
+              {{ icon("phone", "w-4 h-4") }}
+            </div>
+            <div>
+              <span class="text-gray-400 text-xs block">Hotline tư vấn</span>
+              <a href="tel:{{ footer.brand.hotline }}" class="font-bold text-white hover:text-emerald-400 transition-colors">
+                {{ footer.brand.hotline }}
+              </a>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-950/80 border border-[#145a51] flex items-center justify-center text-emerald-400 shrink-0">
+              {{ icon("mail", "w-4 h-4") }}
+            </div>
+            <div>
+              <span class="text-gray-400 text-xs block">Email liên hệ</span>
+              <a href="mailto:{{ footer.brand.email }}" class="font-medium text-white hover:text-emerald-400 transition-colors">
+                {{ footer.brand.email }}
+              </a>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 pt-1">
+            <div class="w-8 h-8 rounded-lg bg-emerald-950/80 border border-[#145a51] flex items-center justify-center text-emerald-400 shrink-0 mt-0.5">
+              {{ icon("location", "w-4 h-4") }}
+            </div>
+            <span class="text-xs text-gray-300 leading-snug">
+              {{ footer.brand.address }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Social Media Links: Tự động lặp theo dữ liệu, không hardcode -->
+        {% if footer.socials and footer.socials.length %}
+          <div class="flex items-center gap-3.5 mt-6">
+            {% for item in footer.socials %}
+              {% set itemUrl = item.url or (('https://zalo.me/' ~ (footer.brand.hotline | replace(' ', ''))) if item.name == 'Zalo' and footer.brand and footer.brand.hotline else '') %}
+              {% if itemUrl and item.icon %}
+                <a
+                  href="{{ itemUrl }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:scale-110 active:scale-95 transition-all duration-200 inline-flex items-center justify-center"
+                  aria-label="{{ item.name }}"
+                  title="{{ item.name }}"
+                >
+                  <img
+                    src="{{ item.icon }}"
+                    alt="{{ item.name }}"
+                    class="w-6 h-6 object-contain {% if not item.invert %}rounded-full{% else %}invert{% endif %}"
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                  />
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- 3 Cột Liên kết -->
+      {% for col in footer.columns %}
+        <div class="flex flex-col">
+          <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-4 border-l-2 border-emerald-400 pl-2.5">
+            {{ col.title }}
+          </h4>
+          <ul class="space-y-2.5 text-xs sm:text-sm">
+            {% for link in col.links %}
+              <li>
+                <a
+                  href="{{ link.url }}"
+                  class="text-gray-300 hover:text-emerald-300 transition-colors duration-150 inline-flex items-center gap-1.5 group"
+                >
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500/40 group-hover:bg-emerald-400 transition-colors"></span>
+                  <span>{{ link.label }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+
+    </div>
+
+    <!-- Bottom Row: Copyright -->
+    <div class="border-t border-[#0e4840] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
+      <div class="text-center sm:text-left leading-relaxed">
+        {{ footer.copyright }}
+      </div>
+      <div class="flex items-center gap-4 text-xs text-gray-400">
+        <a href="/quy-che/" class="hover:text-emerald-300 transition-colors">Điều khoản &amp; Quy chế</a>
+        <span class="text-gray-600">•</span>
+        <a href="/chinh-sach-bao-hanh/" class="hover:text-emerald-300 transition-colors">Chính sách bảo mật</a>
+      </div>
+    </div>
+
+  </div>
+</footer>

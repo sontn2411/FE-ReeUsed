@@ -1,0 +1,40 @@
+{% from "../icon.njk" import icon %}
+{% from "../product-item.njk" import productItem %}
+
+<!-- Discount Products Section: High-Contrast Premium Primary Theme -->
+<section class="discount-products-section mb-12 sm:mb-16 bg-primary rounded-3xl p-4 sm:p-6 lg:p-8 text-white relative overflow-hidden shadow-xl">
+  <!-- Subtle ambient decorative glow effects -->
+  <div class="absolute -top-24 -right-24 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Section Header -->
+  <div class="relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
+    <div class="flex flex-col gap-1.5">
+      <div class="flex items-center gap-2 mb-0.5">
+        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-500 text-white shadow-xs">
+          {{ icon("fire", "w-3 h-3 text-white") }}
+          <span>GIÁ SỐC HÔM NAY</span>
+        </span>
+      </div>
+      <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+        Sản phẩm giảm giá
+      </h2>
+    </div>
+
+    <!-- View All Link as White Pill Button -->
+   <a
+      href="/cua-hang/"
+      class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-white  transition-colors group/link self-start sm:self-auto"
+    >
+      <span>Xem tất cả ưu đãi</span>
+      {{ icon("chevron-right", "w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-0.5") }}
+    </a>
+  </div>
+
+  <!-- Products Grid: 6 items per row on desktop (md:grid-cols-6), 3 on tablet, 2 on mobile -->
+  <div class="relative z-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4">
+    {% for product in saleProducts.slice(0, 12) %}
+      {{ productItem(product, badgeType="discount") }}
+    {% endfor %}
+  </div>
+</section>

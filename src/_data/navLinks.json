@@ -1,0 +1,7 @@
+[
+  { "label": "Trang chủ", "url": "/" },
+  { "label": "Muốn bán", "url": "/muon-ban/" },
+  { "label": "Muốn mua", "url": "/muon-mua/" },
+  { "label": "Cửa hàng", "url": "/cua-hang/" },
+  { "label": "Liên hệ", "url": "/lien-he/" }
+]

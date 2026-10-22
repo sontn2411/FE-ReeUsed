@@ -1,0 +1,50 @@
+{% from "components/icon.njk" import icon %}
+
+<!-- Back To Top Button with Circular Progress Border -->
+<button
+  type="button"
+  id="back-to-top"
+  class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-primary hover:bg-[#07302b] active:scale-90 text-white shadow-[0_8px_30px_rgba(0,0,0,0.25)] hover:shadow-[0_12px_35px_rgba(0,0,0,0.35)] flex items-center justify-center cursor-pointer transition-all duration-300 ease-out opacity-0 pointer-events-none translate-y-4 group/top ring-2 ring-white/10 relative"
+  aria-label="Cuộn lên đầu trang"
+  title="Cuộn lên đầu trang"
+>
+  <!-- Tooltip -->
+  <span class="pointer-events-none absolute right-full mr-2.5 px-2.5 py-1 rounded-lg bg-gray-900/90 backdrop-blur-xs text-white text-xs font-semibold whitespace-nowrap opacity-0 -translate-x-1.5 group-hover/top:opacity-100 group-hover/top:translate-x-0 transition-all duration-200 shadow-md">
+    Lên đầu trang
+  </span>
+
+  <!-- Circular Scroll Progress Indicator -->
+  <svg
+    class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none p-0.5"
+    viewBox="0 0 48 48"
+  >
+    <!-- Background Track -->
+    <circle
+      cx="24"
+      cy="24"
+      r="21"
+      fill="none"
+      stroke="transparent"
+      stroke-width="2.5"
+    />
+    <!-- Active Progress Border (Yellow) -->
+    <circle
+      id="back-to-top-progress"
+      cx="24"
+      cy="24"
+      r="21"
+      fill="none"
+      stroke="#facc15"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-dasharray="132"
+      stroke-dashoffset="132"
+      class="transition-[stroke-dashoffset] duration-150 ease-out"
+    />
+  </svg>
+
+  <!-- Chevron Icon Center -->
+  <span class="relative z-10 transition-transform duration-200 group-hover/top:-translate-y-0.5">
+    {{ icon("chevron-up", "w-5 h-5 text-white") }}
+  </span>
+</button>

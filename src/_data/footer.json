@@ -1,0 +1,85 @@
+{
+  "brand": {
+    "name": "ReeUsed",
+    "logo": "/img/logo.png",
+    "description": "Nền tảng mua bán đồ cũ & thanh lý thiết bị công nghệ uy tín hàng đầu, cùng bạn lan tỏa lối sống xanh và tiết kiệm thông minh.",
+    "hotline": "0935 000 000",
+    "email": "hotro@reeused.vn",
+    "address": "Số 68 Đường Sáng Tạo, Khu Công Nghệ Cao, TP. Hồ Chí Minh",
+    "addresses": [
+      "Chi nhánh 1: Số 68 Đường Sáng Tạo, Khu Công Nghệ Cao, TP. Hồ Chí Minh",
+      "Chi nhánh 2: Số 120 Đường Cầu Giấy, Q. Cầu Giấy, Hà Nội",
+      "Chi nhánh 3: Số 45 Đường Lê Duẩn, Q. Hải Châu, Đà Nẵng"
+    ],
+    "workingHours": "08:00 - 21:00 (Tất cả các ngày)"
+  },
+  "columns": [
+    {
+      "title": "Về ReeUsed",
+      "links": [
+        { "label": "Giới thiệu về chúng tôi", "url": "/gioi-thieu/" },
+        { "label": "Quy trình kiểm định chất lượng", "url": "/kiem-dinh/" },
+        {
+          "label": "Chính sách bảo hành & đổi trả",
+          "url": "/chinh-sach-bao-hanh/"
+        },
+        { "label": "Quy chế hoạt động sàn TMĐT", "url": "/quy-che/" },
+        { "label": "Tuyển dụng nhân tài", "url": "/tuyen-dung/" }
+      ]
+    },
+    {
+      "title": "Hỗ trợ khách hàng",
+      "links": [
+        { "label": "Hướng dẫn đăng tin bán", "url": "/huong-dan-ban/" },
+        { "label": "Dịch vụ thu mua tận nhà", "url": "/muon-ban/" },
+        { "label": "Phương thức thanh toán an toàn", "url": "/thanh-toan/" },
+        { "label": "Chính sách vận chuyển & kiểm hàng", "url": "/van-chuyen/" },
+        { "label": "Câu hỏi thường gặp (FAQ)", "url": "/faq/" }
+      ]
+    },
+    {
+      "title": "Danh mục phổ biến",
+      "links": [
+        {
+          "label": "Điện thoại cũ giá tốt",
+          "url": "/cua-hang/?category=dien-thoai"
+        },
+        {
+          "label": "Máy tính & Laptop cũ",
+          "url": "/cua-hang/?category=may-tinh"
+        },
+        {
+          "label": "Máy tính bảng & iPad",
+          "url": "/cua-hang/?category=may-tinh-bang"
+        },
+        {
+          "label": "Tai nghe & Loa di động",
+          "url": "/cua-hang/?category=tai-nghe"
+        },
+        {
+          "label": "Đồng hồ thông minh",
+          "url": "/cua-hang/?category=dong-ho-thong-minh"
+        }
+      ]
+    }
+  ],
+  "socials": [
+    {
+      "name": "Facebook",
+      "url": "https://facebook.com/reeused",
+      "icon": "/img/logo-facebook.svg"
+    },
+    {
+      "name": "Zalo",
+      "url": "https://zalo.me/0935000000",
+      "icon": "/img/icon-zalo.webp"
+    },
+    {
+      "name": "TikTok",
+      "url": "https://tiktok.com/@reeused",
+      "icon": "/img/logo-tiktok.svg",
+      "invert": true
+    }
+  ],
+  "copyright": "© 2026 ReeUsed. Bản quyền thuộc về ReeUsed Platform. Lan tỏa lối sống xanh và bền vững."
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "sp-1",
+    "name": "iPhone 13 Pro Max 128GB Quốc Tế",
+    "category": "Điện thoại",
+    "price": "13.890.000₫",
+    "originalPrice": "17.500.000₫",
+    "discount": "-21%",
+    "image": "/img/products/iphone-13.jpg",
+    "location": "Hà Nội"
+  },
+  {
+    "id": "sp-2",
+    "name": "MacBook Pro M1 13 inch 8GB / 256GB",
+    "category": "Máy tính & Laptop",
+    "price": "16.490.000₫",
+    "originalPrice": "21.900.000₫",
+    "discount": "-25%",
+    "image": "/img/products/macbook-pro.jpg",
+    "location": "TP. Hồ Chí Minh"
+  },
+  {
+    "id": "sp-3",
+    "name": "Tai nghe Sony WH-1000XM4 Chống ồn",
+    "category": "Phụ kiện & Âm thanh",
+    "price": "3.850.000₫",
+    "originalPrice": "5.500.000₫",
+    "discount": "-30%",
+    "image": "/img/products/sony-headphone.jpg",
+    "location": "Đà Nẵng"
+  },
+  {
+    "id": "sp-4",
+    "name": "Apple Watch Series 7 45mm GPS Nhôm",
+    "category": "Đồng hồ thông minh",
+    "price": "4.990.000₫",
+    "originalPrice": "7.200.000₫",
+    "discount": "-31%",
+    "image": "/img/products/apple-watch.jpg",
+    "location": "Hà Nội"
+  },
+  {
+    "id": "sp-5",
+    "name": "iPad Air 4 64GB Wifi Retina Display",
+    "category": "Máy tính bảng",
+    "price": "7.690.000₫",
+    "originalPrice": "10.500.000₫",
+    "discount": "-27%",
+    "image": "/img/products/ipad-air.jpg",
+    "location": "TP. Hồ Chí Minh"
+  },
+  {
+    "id": "sp-6",
+    "name": "Máy ảnh Sony Alpha A7 IV + Lens Kit",
+    "category": "Máy ảnh & Quay phim",
+    "price": "38.900.000₫",
+    "originalPrice": "49.000.000₫",
+    "discount": "-21%",
+    "image": "/img/products/sony-camera.jpg",
+    "location": "Hà Nội"
+  },
+  {
+    "id": "sp-7",
+    "name": "Bàn phím cơ Keychron K2 V2 Hot-swap",
+    "category": "Phụ kiện máy tính",
+    "price": "1.250.000₫",
+    "originalPrice": "1.890.000₫",
+    "discount": "-34%",
+    "image": "/img/products/keychron-k2.jpg",
+    "location": "Hà Nội"
+  },
+  {
+    "id": "sp-8",
+    "name": "Màn hình Dell UltraSharp 24 inch IPS",
+    "category": "Màn hình & PC",
+    "price": "3.990.000₫",
+    "originalPrice": "5.700.000₫",
+    "discount": "-30%",
+    "image": "/img/products/dell-monitor.jpg",
+    "location": "TP. Hồ Chí Minh"
+  },
+  {
+    "id": "sp-9",
+    "name": "Chuột không dây Logitech MX Master 3S",
+    "category": "Chuột & Bàn phím",
+    "price": "1.490.000₫",
+    "originalPrice": "2.200.000₫",
+    "discount": "-32%",
+    "image": "/img/products/logitech-mouse.jpg",
+    "location": "Đà Nẵng"
+  },
+  {
+    "id": "sp-10",
+    "name": "Loa Bluetooth Marshall Emberton II",
+    "category": "Loa & Âm thanh",
+    "price": "2.790.000₫",
+    "originalPrice": "3.990.000₫",
+    "discount": "-30%",
+    "image": "/img/products/marshall-speaker.jpg",
+    "location": "TP. Hồ Chí Minh"
+  },
+  {
+    "id": "sp-11",
+    "name": "Máy chơi game Nintendo Switch OLED",
+    "category": "Máy chơi game",
+    "price": "5.450.000₫",
+    "originalPrice": "7.500.000₫",
+    "discount": "-27%",
+    "image": "/img/products/nintendo-switch.jpg",
+    "location": "Hà Nội"
+  },
+  {
+    "id": "sp-12",
+    "name": "Máy đọc sách Kindle Paperwhite 5 (11th)",
+    "category": "Thiết bị đọc sách",
+    "price": "2.190.000₫",
+    "originalPrice": "3.200.000₫",
+    "discount": "-32%",
+    "image": "/img/products/kindle-paperwhite.jpg",
+    "location": "Đà Nẵng"
+  }
+]

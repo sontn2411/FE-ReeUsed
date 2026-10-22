@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {# SEO Title & Meta #}
+    {% set pageTitle = (title ~ " | " ~ site.name) if (title and title != "Home" and title != site.name) else site.title %}
+    {% set metaDescription = description or site.description %}
+    {% set metaKeywords = keywords or site.keywords %}
+    {% set canonicalUrl = site.url ~ page.url %}
+    {% set metaImage = image or (site.url ~ site.ogImage) %}
+
+    <title>{{ pageTitle }}</title>
+    <meta name="description" content="{{ metaDescription }}">
+    <meta name="keywords" content="{{ metaKeywords }}">
+    <meta name="author" content="{{ author or site.author }}">
+    <meta name="robots" content="{{ robots or 'index, follow' }}">
+    <link rel="canonical" href="{{ canonicalUrl }}">
+
+    {# Mobile & PWA Theme Colors #}
+    <meta name="theme-color" content="{{ site.themeColor or '#0a433c' }}">
+    <meta name="msapplication-TileColor" content="{{ site.themeColor or '#0a433c' }}">
+
+    {# Favicon & Icons #}
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <link rel="apple-touch-icon" href="/img/logo.png">
+
+    {# Open Graph / Facebook #}
+    <meta property="og:type" content="{{ ogType or 'website' }}">
+    <meta property="og:title" content="{{ pageTitle }}">
+    <meta property="og:description" content="{{ metaDescription }}">
+    <meta property="og:url" content="{{ canonicalUrl }}">
+    <meta property="og:site_name" content="{{ site.name }}">
+    <meta property="og:image" content="{{ metaImage }}">
+    <meta property="og:image:alt" content="{{ pageTitle }}">
+    <meta property="og:locale" content="{{ site.locale or 'vi_VN' }}">
+
+    {# Twitter Card #}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ pageTitle }}">
+    <meta name="twitter:description" content="{{ metaDescription }}">
+    <meta name="twitter:image" content="{{ metaImage }}">
+
+    {# Schema.org Structured Data (JSON-LD) #}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "{{ site.name }}",
+        "url": "{{ site.url }}",
+        "description": "{{ site.description }}",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "{{ site.url }}/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="/assets/main.css" />
+  </head>
+  <body class="h-full overflow-hidden">
+    <!-- Mobile Left Offcanvas Navigation Drawer -->
+    {% include "../components/mobile-nav.njk" %}
+
+    <!-- Sticky Header: Pinned at top when scrolling -->
+    <div id="sticky-header" class="fixed top-0 left-0 w-full z-50 bg-white hidden">
+      <div class="container mx-auto px-2.5 sm:px-4 py-2 sm:py-3">
+        {% include "../components/header.njk" %}
+        <!-- Sticky Navbar: Slide down/up accordion on hamburger click -->
+        <div id="sticky-navbar-collapse">
+          <div class="sticky-navbar-inner">
+            {% include "../components/navabar.njk" %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Smooth Scrollbar Container -->
+    <div id="main" class="h-screen w-full overflow-hidden">
+      <!-- Original Header: Natural flow header at page top -->
+      <div id="original-header" class="w-full bg-white">
+        <!-- Top Announcement Bar: Chứa địa chỉ & số điện thoại, không dính khi cuộn -->
+        {% include "../components/top-bar.njk" %}
+
+        <div class="container mx-auto px-2.5 sm:px-4 py-2 sm:py-3">
+          {% include "../components/header.njk" %}
+          {% include "../components/navabar.njk" %}
+        </div>
+      </div>
+
+      <main class="container mx-auto px-2.5 sm:px-4 py-2 sm:py-3 pb-8">
+        {{ content | safe }}
+      </main>
+
+      <!-- Footer Component -->
+      {% include "../components/footer.njk" %}
+    </div>
+
+
+    <!-- Floating Action Group: Social Contact Buttons & Back to Top -->
+    <div class="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[60] flex flex-col items-center gap-2.5 sm:gap-3">
+      {% include "../components/floating-socials.njk" %}
+      {% include "../components/back-to-top.njk" %}
+    </div>
+
+    <script src="/js/smooth-scrollbar.js"></script>
+    <script src="/js/main.js"></script>
+    {% if extraJs %}
+      <script src="{{ extraJs }}"></script>
+    {% endif %}
+  </body>
+</html>

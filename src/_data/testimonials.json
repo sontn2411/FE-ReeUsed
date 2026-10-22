@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "Trần Hoàng Nam",
+    "rating": 5,
+    "comment": "Lúc đầu cũng đắn đo vì mua máy cũ online, nhưng khi nhận máy thì bất ngờ thật sự! Máy đẹp 99%, pin còn 94%, đóng gói rất cẩn thận và đúng y mô tả. Tiết kiệm được gần 8 triệu so với mua mới mà trải nghiệm dùng cực kỳ mượt mà. Rất ủng hộ mô hình sống xanh này!",
+    "date": "2 ngày trước",
+    "location": "Hà Nội"
+  },
+  {
+    "id": 2,
+    "name": "Nguyễn Thu Trang",
+    "rating": 5,
+    "comment": "Trước đây đồ công nghệ cũ không dùng toàn để góc tủ rất phí. Biết đến ReeUsed qua bạn bè, mình đăng bán thử thì được đội ngũ hỗ trợ kiểm định và chốt đơn rất nhanh, tiền về tài khoản minh bạch. Vừa dọn gọn nhà cửa vừa có thêm khoản thu đáng kể!",
+    "date": "1 tuần trước",
+    "location": "TP. Hồ Chí Minh"
+  },
+  {
+    "id": 3,
+    "name": "Lê Quang Minh",
+    "rating": 5,
+    "comment": "Setup góc làm việc WFH với đồ công nghệ tại ReeUsed là quyết định chuẩn nhất năm nay của mình. Màn hình chuẩn màu, sáng đẹp không tì vết. Vừa tiết kiệm được ngân sách lớn vừa góp phần nhỏ giảm thiểu rác thải điện tử ra môi trường tự nhiên.",
+    "date": "2 tuần trước",
+    "location": "Đà Nẵng"
+  },
+  {
+    "id": 4,
+    "name": "Đặng Phương Linh",
+    "rating": 5,
+    "comment": "Sinh viên học ngành IT cần đồ xịn để gõ code nhưng tài chính có hạn. Mua combo này ở ReeUsed giá chỉ bằng một nửa so với giá hãng mà máy còn bảo hành, gõ êm ru. Mình đã rủ cả nhóm bạn cùng lớp sang đây mua sắm luôn!",
+    "date": "3 tuần trước",
+    "location": "Hà Nội"
+  }
+]

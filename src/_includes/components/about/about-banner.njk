@@ -1,0 +1,18 @@
+{% from "components/page-banner.njk" import pageBanner %}
+
+{% set bData = about.banner if about and about.banner else {} %}
+
+{{ pageBanner(
+  bannerUrl = bannerImage or bannerUrl or bData.image or "/img/banner-about.png",
+  title = bannerTitle1 or bannerTitle or bData.title or "Kết nối người mua và người bán",
+  desc = bannerDesc or desc or bData.desc,
+  options = {
+    titleHighlight: bannerTitle2 or bannerTitleHighlight or bData.titleHighlight,
+    alt: bannerAltText or title or bData.alt or "Giới thiệu ReeUsed",
+    breadcrumbTitle: breadcrumbTitle or title or about.breadcrumbTitle or "Giới thiệu",
+    breadcrumbs: breadcrumbs,
+    stats: stats or bData.stats,
+    hasGradient: hasGradient if hasGradient is defined else (bData.hasGradient if bData.hasGradient is defined else true),
+    showStats: showStats if showStats is defined else true
+  }
+) }}

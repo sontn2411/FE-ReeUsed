@@ -1,0 +1,222 @@
+{% from "components/icon.njk" import icon %}
+
+{# Banner Hero Carousel Component (Facebook Banner Aspect Ratio: 1024/339) #}
+{% set banners = [
+  {
+    id: 1,
+    image: "/img/banner-01.png",
+    alt: "ReeUsed Banner 01",
+    url: "/muon-ban/"
+  },
+  {
+    id: 2,
+    image: "/img/banner-02.png",
+    alt: "ReeUsed Banner 02",
+    url: "/cua-hang/"
+  },
+  {
+    id: 3,
+    image: "/img/banner-03.png",
+    alt: "ReeUsed Banner 03",
+    url: "/muon-mua/"
+  }
+] %}
+<section class="banner-hero-section  pt-3 sm:pt-4 pb-6 sm:pb-8">
+<div class="hero-banner-wrapper w-full">
+  <!-- Banner Carousel Frame (Image & Prev/Next Arrows) -->
+  <div
+    class="relative w-full aspect-[1024/339] overflow-hidden rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-shadow group select-none "
+    style="aspect-ratio: 1024 / 339;"
+    id="hero-banner-carousel"
+  >
+    <!-- Carousel Track -->
+    <div
+      id="hero-banner-track"
+      class="flex w-full h-full transition-transform duration-500 ease-out"
+    >
+      {% for item in banners %}
+        <div class="min-w-full w-full h-full shrink-0 relative">
+          <a href="{{ item.url }}" class="block w-full h-full" aria-label="{{ item.alt }}">
+            <img
+              src="{{ item.image }}"
+              alt="{{ item.alt }}"
+              class="w-full h-full object-cover object-center"
+              {% if loop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
+            >
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Navigation Buttons (Prev / Next) -->
+    <button
+      type="button"
+      id="hero-banner-prev"
+      class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-gray-800 shadow-md backdrop-blur-xs flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer z-10"
+      aria-label="Banner trước"
+    >
+      <span class="rotate-180 flex items-center justify-center">
+        {{ icon("chevron-right", "w-4 h-4 sm:w-5 sm:h-5") }}
+      </span>
+    </button>
+
+    <button
+      type="button"
+      id="hero-banner-next"
+      class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-gray-800 shadow-md backdrop-blur-xs flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer z-10"
+      aria-label="Banner tiếp theo"
+    >
+      {{ icon("chevron-right", "w-4 h-4 sm:w-5 sm:h-5") }}
+    </button>
+  </div>
+
+  <!-- Dots Indicators: Positioned below the banner for better visibility -->
+  <div
+    id="hero-banner-dots"
+    class="flex items-center justify-center gap-1.5 sm:gap-2 mt-3 sm:mt-3.5 py-0.5"
+  >
+    {% for item in banners %}
+      <button
+        type="button"
+        class="hero-banner-dot transition-all duration-300 rounded-full cursor-pointer {% if loop.first %}w-6 sm:w-8 h-2 sm:h-2.5 bg-primary shadow-xs{% else %}w-2 sm:w-2.5 h-2 sm:h-2.5 bg-gray-300 hover:bg-gray-400{% endif %}"
+        data-index="{{ loop.index0 }}"
+        aria-label="Chuyển đến banner {{ loop.index }}"
+      ></button>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  (function () {
+    var carousel = document.querySelector("#hero-banner-carousel");
+    var track = document.querySelector("#hero-banner-track");
+    var prevBtn = document.querySelector("#hero-banner-prev");
+    var nextBtn = document.querySelector("#hero-banner-next");
+    var dots = document.querySelectorAll(".hero-banner-dot");
+
+    if (!carousel || !track || dots.length === 0) return;
+
+    var totalSlides = dots.length;
+    var currentIndex = 0;
+    if (window.__heroBannerTimer) {
+      clearInterval(window.__heroBannerTimer);
+    }
+    var isHovered = false;
+
+    // Update active slide and dot indicators
+    function goToSlide(index) {
+      if (index < 0) {
+        currentIndex = totalSlides - 1;
+      } else if (index >= totalSlides) {
+        currentIndex = 0;
+      } else {
+        currentIndex = index;
+      }
+
+      track.style.transform = "translateX(-" + currentIndex * 100 + "%)";
+
+      dots.forEach(function (dot, i) {
+        if (i === currentIndex) {
+          dot.className =
+            "hero-banner-dot transition-all duration-300 rounded-full cursor-pointer w-6 sm:w-8 h-2 sm:h-2.5 bg-primary shadow-xs";
+        } else {
+          dot.className =
+            "hero-banner-dot transition-all duration-300 rounded-full cursor-pointer w-2 sm:w-2.5 h-2 sm:h-2.5 bg-gray-300 hover:bg-gray-400";
+        }
+      });
+    }
+
+    function nextSlide() {
+      goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentIndex - 1);
+    }
+
+    // Auto-play timer
+    function startAutoPlay() {
+      stopAutoPlay();
+      window.__heroBannerTimer = setInterval(function () {
+        if (!isHovered) {
+          nextSlide();
+        }
+      }, 4000);
+    }
+
+    function stopAutoPlay() {
+      if (window.__heroBannerTimer) {
+        clearInterval(window.__heroBannerTimer);
+        window.__heroBannerTimer = null;
+      }
+    }
+
+    // Event Listeners
+    if (nextBtn) {
+      nextBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        nextSlide();
+        startAutoPlay();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        prevSlide();
+        startAutoPlay();
+      });
+    }
+
+    dots.forEach(function (dot) {
+      dot.addEventListener("click", function () {
+        var idx = parseInt(dot.getAttribute("data-index"), 10);
+        goToSlide(idx);
+        startAutoPlay();
+      });
+    });
+
+    // Pause on hover
+    carousel.addEventListener("mouseenter", function () {
+      isHovered = true;
+    });
+
+    carousel.addEventListener("mouseleave", function () {
+      isHovered = false;
+    });
+
+    // Touch swipe support for mobile devices
+    var touchStartX = 0;
+    var touchEndX = 0;
+
+    carousel.addEventListener(
+      "touchstart",
+      function (e) {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoPlay();
+      },
+      { passive: true },
+    );
+
+    carousel.addEventListener(
+      "touchend",
+      function (e) {
+        touchEndX = e.changedTouches[0].screenX;
+        var diffX = touchEndX - touchStartX;
+        if (Math.abs(diffX) > 40) {
+          if (diffX < 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+        }
+        startAutoPlay();
+      },
+      { passive: true },
+    );
+
+    // Initial start
+    startAutoPlay();
+  })();
+</script>
+</section>

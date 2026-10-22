@@ -1,0 +1,294 @@
+{#
+  Component: Form Select (Dropdown tùy biến cao cấp cho Form)
+  Kế thừa style đẹp mắt của dropdown search:
+  - Menu nổi bo góc mềm mại, đổ bóng cao cấp backdrop-blur
+  - Tích hợp nhãn nổi (Floating Label Badge) đồng bộ 100% với input.njk
+  - Hiển thị dấu tích checkmark cho option đang chọn
+  - Tự động đóng khi chọn hoặc click ra ngoài
+  - Lưu giá trị vào input hidden để submit form chuẩn xác
+  - Hỗ trợ cả mảng chuỗi ["Chủ đề 1", "Chủ đề 2"] hoặc mảng object [{ label, value, icon }]
+
+  Cách dùng:
+  {% from "components/form-select.njk" import formSelect %}
+  {{ formSelect(
+    name = "topic",
+    id = "contact-topic",
+    label = "Chủ đề",
+    placeholder = "Chọn chủ đề",
+    options = formTopics,
+    selected = "",
+    required = true
+  ) }}
+#}
+
+{%
+  macro formSelect(
+    name = "",
+    id = "",
+    label = "",
+    options = [],
+    selected = "",
+    placeholder = "Vui lòng chọn",
+    dropdownTitle = "",
+    required = false,
+    class = "",
+    wrapperClass = "",
+    disabled = false
+  )
+%}
+  {% set selectId = id or name or ("select-" ~ [1, 2, 3, 4, 5, 6, 7, 8, 9] | random) %}
+  {% set items = options or [] %}
+
+  {# Xác định label và icon ban đầu #}
+  {% set currentLabel = placeholder %}
+  {% set currentIcon = "" %}
+  {% set hasSelected = false %}
+
+  {% for opt in items %}
+    {% set optValue = opt.value if (opt.value is defined) else opt %}
+    {% set optLabel = opt.label if (opt.label is defined) else opt %}
+    {% set optIcon = opt.icon if (opt.icon is defined) else "" %}
+    {% if optValue == selected and selected != "" %}
+      {% set currentLabel = optLabel %}
+      {% set currentIcon = optIcon %}
+      {% set hasSelected = true %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="relative custom-form-select-wrapper {{ wrapperClass }}">
+    {# Floating Label Badge đồng bộ với input.njk #}
+    {% if label %}
+      <label
+        for="{{ selectId }}"
+        class="absolute -top-2.5 left-4 px-2.5 py-0.5 bg-white border border-slate-200/90 rounded-md text-[11px] sm:text-xs font-semibold text-slate-700 z-20 shadow-3xs flex items-center gap-1 select-none pointer-events-none"
+      >
+        <span>{{ label }}</span>
+        {% if required %}
+          <span class="text-slate-400">*</span>
+        {% endif %}
+      </label>
+    {% endif %}
+
+    <details
+      class="relative custom-select custom-form-select group w-full"
+      id="{{ selectId }}"
+      {% if disabled %}data-disabled="true"{% endif %}
+    >
+      {# Trigger button #}
+      <summary
+        class="list-none [&::-webkit-details-marker]:hidden flex items-center justify-between w-full px-4 pt-3.5 pb-3 rounded-xl sm:rounded-2xl bg-[#fbfdfc] border border-slate-200/90 text-sm group-open:border-primary group-open:ring-2 group-open:ring-primary/10 transition-all outline-none cursor-pointer select-none {% if disabled %}opacity-60 pointer-events-none bg-slate-100{% endif %} {{ class }}"
+      >
+        <div class="flex items-center gap-2.5 truncate min-w-0 pr-2">
+          <span class="custom-form-select-icon-wrapper flex items-center shrink-0 {% if not currentIcon %}hidden{% endif %}">
+            <img
+              src="{{ currentIcon }}"
+              alt=""
+              class="custom-form-select-active-icon w-4 h-4 object-contain"
+            />
+          </span>
+          <span
+            class="custom-form-select-label truncate text-sm transition-colors {% if not hasSelected %}text-slate-400{% else %}text-slate-800 font-medium{% endif %}"
+            data-placeholder="{{ placeholder }}"
+          >
+            {{ currentLabel }}
+          </span>
+        </div>
+
+        {# Chevron icon quay khi mở #}
+        <span class="text-slate-400 group-hover:text-primary group-open:rotate-180 group-open:text-primary transition-transform duration-200 flex items-center shrink-0 ml-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </span>
+      </summary>
+
+      {# Hidden Input để lưu giá trị submit form #}
+      <input
+        type="hidden"
+        name="{{ name }}"
+        value="{{ selected }}"
+        class="custom-form-select-input"
+        {% if required %}required{% endif %}
+      />
+
+      {# Dropdown panel nổi bo tròn đẹp mắt #}
+      <div class="absolute left-0 right-0 top-full mt-2 w-full bg-white/95 backdrop-blur-md rounded-2xl shadow-[0_12px_40px_-8px_rgba(0,0,0,0.15)] border border-slate-100 p-2 z-50">
+        {% if dropdownTitle %}
+          <div class="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+            {{ dropdownTitle }}
+          </div>
+        {% endif %}
+
+        <div class="space-y-1 max-h-56 overflow-y-auto overscroll-contain pr-1 custom-scrollbar">
+          {% for opt in items %}
+            {% set optValue = opt.value if (opt.value is defined) else opt %}
+            {% set optLabel = opt.label if (opt.label is defined) else opt %}
+            {% set optIcon = opt.icon if (opt.icon is defined) else "" %}
+            {% set isSelected = (optValue == selected and selected != "") %}
+
+            <button
+              type="button"
+              data-value="{{ optValue }}"
+              data-label="{{ optLabel }}"
+              data-icon="{{ optIcon }}"
+              class="custom-form-select-option w-full flex items-center justify-between px-3.5 py-2.5 text-xs sm:text-sm font-medium rounded-xl transition-all cursor-pointer text-left {% if isSelected %}bg-emerald-50 text-primary font-semibold{% else %}text-slate-700 hover:bg-slate-50 hover:text-primary{% endif %}"
+            >
+              <div class="flex items-center gap-2.5 truncate">
+                {% if optIcon %}
+                  <img
+                    src="{{ optIcon }}"
+                    alt="{{ optLabel }}"
+                    class="w-4 h-4 object-contain shrink-0"
+                    loading="lazy"
+                  />
+                {% endif %}
+                <span class="truncate">{{ optLabel }}</span>
+              </div>
+
+              {% if isSelected %}
+                <svg
+                  class="w-4 h-4 text-primary shrink-0 check-indicator"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              {% endif %}
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+    </details>
+  </div>
+
+  {# JavaScript xử lý đóng mở & đồng bộ chọn giá trị #}
+  <script>
+    if (!window._customFormSelectInitialized) {
+      window._customFormSelectInitialized = true;
+
+      // Đóng dropdown khi click ra ngoài
+      document.addEventListener("click", function(e) {
+        document.querySelectorAll(".custom-form-select[open]").forEach(function(dropdown) {
+          if (!dropdown.contains(e.target)) {
+            dropdown.removeAttribute("open");
+          }
+        });
+      });
+
+      // Ngăn Smooth Scrollbar cuộn toàn trang khi đang cuộn chuột trong danh sách dropdown
+      document.addEventListener(
+        "wheel",
+        function (e) {
+          var dropdown = e.target.closest(".custom-form-select[open]");
+          if (!dropdown) return;
+
+          var scrollable = dropdown.querySelector(".overflow-y-auto, .overflow-auto");
+          if (!scrollable || scrollable.scrollHeight <= scrollable.clientHeight) return;
+
+          var delta = e.deltaY;
+          if (e.deltaMode === 1) delta *= 33;
+          else if (e.deltaMode === 2) delta *= scrollable.clientHeight;
+
+          var newTop = scrollable.scrollTop + delta;
+          var maxScroll = scrollable.scrollHeight - scrollable.clientHeight;
+          scrollable.scrollTop = Math.max(0, Math.min(newTop, maxScroll));
+
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          e.preventDefault();
+        },
+        { passive: false, capture: true }
+      );
+
+      // Xử lý chọn option
+      document.addEventListener("click", function(e) {
+        const optionBtn = e.target.closest(".custom-form-select-option");
+        if (!optionBtn) return;
+
+        const dropdown = optionBtn.closest(".custom-form-select");
+        if (!dropdown) return;
+
+        const value = optionBtn.getAttribute("data-value") || "";
+        const label = optionBtn.getAttribute("data-label") || "";
+        const iconUrl = optionBtn.getAttribute("data-icon") || "";
+
+        // 1. Cập nhật hidden input
+        const hiddenInput = dropdown.querySelector(".custom-form-select-input");
+        if (hiddenInput) {
+          hiddenInput.value = value;
+          hiddenInput.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+
+        // 2. Cập nhật nhãn hiển thị trên trigger
+        const labelEl = dropdown.querySelector(".custom-form-select-label");
+        if (labelEl) {
+          labelEl.textContent = label;
+          labelEl.classList.remove("text-slate-400");
+          labelEl.classList.add("text-slate-800", "font-medium");
+        }
+
+        // Cập nhật icon nếu có
+        const iconWrapper = dropdown.querySelector(".custom-form-select-icon-wrapper");
+        if (iconWrapper) {
+          if (iconUrl) {
+            iconWrapper.innerHTML = `<img src="${iconUrl}" alt="" class="custom-form-select-active-icon w-4 h-4 object-contain">`;
+            iconWrapper.classList.remove("hidden");
+          } else {
+            iconWrapper.innerHTML = "";
+            iconWrapper.classList.add("hidden");
+          }
+        }
+
+        // 3. Cập nhật style và dấu tích cho option được chọn
+        dropdown.querySelectorAll(".custom-form-select-option").forEach(function(btn) {
+          const isMatch = btn.getAttribute("data-value") === value;
+          if (isMatch) {
+            btn.classList.add("bg-emerald-50", "text-primary", "font-semibold");
+            btn.classList.remove("text-slate-700", "hover:bg-slate-50");
+
+            if (!btn.querySelector(".check-indicator")) {
+              const check = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+              check.setAttribute("class", "w-4 h-4 text-primary shrink-0 check-indicator");
+              check.setAttribute("fill", "none");
+              check.setAttribute("stroke", "currentColor");
+              check.setAttribute("viewBox", "0 0 24 24");
+              check.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />';
+              btn.appendChild(check);
+            }
+          } else {
+            btn.classList.remove("bg-emerald-50", "text-primary", "font-semibold");
+            btn.classList.add("text-slate-700", "hover:bg-slate-50");
+            const check = btn.querySelector(".check-indicator");
+            if (check) check.remove();
+          }
+        });
+
+        // 4. Đóng dropdown
+        dropdown.removeAttribute("open");
+      });
+    }
+  </script>
+{% endmacro %}
+
+{# Hỗ trợ sử dụng qua include #}
+{% if name or label %}
+  {{ formSelect(
+    name = name,
+    id = id,
+    label = label,
+    options = options,
+    selected = selected,
+    placeholder = placeholder,
+    dropdownTitle = dropdownTitle,
+    required = required,
+    class = class,
+    wrapperClass = wrapperClass,
+    disabled = disabled
+  ) }}
+{% endif %}

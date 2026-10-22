@@ -1,0 +1,31 @@
+{% from "../icon.njk" import icon %}
+{% from "../product-item.njk" import productItem %}
+
+<!-- New Products Section: Maximum 12 items, 6 items per row on desktop -->
+<section class="new-products-section mb-12 sm:mb-16">
+  <!-- Section Header -->
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
+    <div class="flex flex-col gap-1.5">
+      <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
+        Sản phẩm mới
+      </h2>
+    </div>
+
+    <!-- View All Link -->
+    <a
+      href="/cua-hang/"
+      class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-primary hover:text-emerald-700 transition-colors group/link self-start sm:self-auto"
+    >
+      <span>Xem tất cả sản phẩm mới</span>
+      {{ icon("chevron-right", "w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-0.5") }}
+    </a>
+  </div>
+
+  <!-- Products Grid: 6 items per row on desktop (md:grid-cols-6), 3 on tablet, 2 on mobile -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4">
+    {% set items = newProducts or [] %}
+    {% for product in items.slice(0, 12) %}
+      {{ productItem(product, badgeType="new", showOriginalPrice=false) }}
+    {% endfor %}
+  </div>
+</section>

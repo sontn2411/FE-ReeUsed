@@ -1,0 +1,25 @@
+{
+  "name": "eleventy-tailwind-starter",
+  "version": "2.0.0",
+  "description": "",
+  "scripts": {
+    "clean": "rimraf _site",
+    "serve:eleventy": "npx @11ty/eleventy --serve",
+    "serve": "npm-run-all clean serve:*",
+    "build:eleventy": "npx @11ty/eleventy",
+    "build": "npm-run-all --parallel clean build:*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-navigation": "^1.0.4",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^6.0.1",
+    "tailwindcss": "^4.1.13"
+  },
+  "dependencies": {
+    "eleventy-plugin-tailwindcss-4": "^2.0.1"
+  }
+}

@@ -1,0 +1,295 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0a433c;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+/* Hide scrollbar while preserving smooth touch scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Show hamburger button on sticky header (Desktop) */
+#sticky-header .sticky-navbar-toggle {
+  display: inline-flex !important;
+}
+
+/* Toggle hamburger open/close icons */
+.sticky-navbar-toggle.is-active .icon-menu-open {
+  display: none !important;
+}
+
+.sticky-navbar-toggle.is-active .icon-menu-close {
+  display: inline-flex !important;
+}
+
+/* Toggle search/close icons on mobile search button */
+.mobile-search-toggle.is-active .icon-search-open {
+  display: none !important;
+}
+
+.mobile-search-toggle.is-active .icon-search-close {
+  display: inline-flex !important;
+}
+
+.mobile-search-toggle.is-active {
+  background-color: var(--color-gray-100, #f3f4f6);
+  color: var(--color-primary, #0a433c);
+}
+
+/* Smooth slide-down/up animation for mobile search collapse */
+.mobile-search-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.22s ease-out,
+    margin 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  margin-top: 0;
+}
+
+.mobile-search-collapse.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 0.35rem;
+}
+
+/* Allow dropdown overflow once search is fully expanded */
+.mobile-search-collapse.is-open.is-fully-expanded {
+  overflow: visible;
+}
+
+.mobile-search-inner {
+  min-height: 0;
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(-6px);
+}
+
+.mobile-search-collapse.is-open .mobile-search-inner {
+  transform: translateY(0);
+}
+
+.mobile-search-collapse.is-open.is-fully-expanded .mobile-search-inner {
+  overflow: visible;
+}
+
+/* Mobile Left Offcanvas Drawer Navigation */
+#mobile-nav {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#mobile-nav.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#mobile-nav-backdrop {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#mobile-nav.is-open #mobile-nav-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#mobile-nav-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 290px;
+  max-width: 85vw;
+  background-color: #ffffff;
+  z-index: 20;
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  translate: -100% 0;
+  transition:
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    translate 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+  pointer-events: auto;
+}
+
+#mobile-nav.is-open #mobile-nav-panel,
+#mobile-nav-panel.is-open {
+  transform: translateX(0) !important;
+  -webkit-transform: translateX(0) !important;
+  translate: 0 0 !important;
+}
+
+/* Animated underline effect on hover (left to right) */
+.nav-link-animated {
+  position: relative;
+}
+
+.nav-link-animated::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0.75rem;
+  right: 0.75rem;
+  height: 2px;
+  background-color: var(--color-primary, #0a433c);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 9999px;
+}
+
+.nav-link-animated:hover::after,
+.nav-link-animated.is-active::after {
+  transform: scaleX(1);
+}
+
+.nav-link-animated.is-active {
+  color: var(--color-primary, #0a433c) !important;
+  font-weight: 700;
+}
+
+/* Smooth accordion slide animation for sticky navbar */
+#sticky-navbar-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.25s ease-out,
+    margin 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    padding 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  border-top: 1px solid transparent;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#sticky-navbar-collapse.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  /* margin-top: 0.5rem; */
+  padding-top: 0.5rem;
+}
+
+/* Allow dropdown overflow once navbar is fully expanded */
+#sticky-navbar-collapse.is-open.is-fully-expanded {
+  overflow: visible;
+}
+
+.sticky-navbar-inner {
+  min-height: 0;
+  overflow: hidden;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(-8px);
+}
+
+#sticky-navbar-collapse.is-open .sticky-navbar-inner {
+  transform: translateY(0);
+}
+
+#sticky-navbar-collapse.is-open.is-fully-expanded .sticky-navbar-inner {
+  overflow: visible;
+}
+
+#sticky-header.header-slide-down {
+  display: block !important;
+  animation: headerSlideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Sticky header slide-up animation when hiding */
+#sticky-header.header-slide-up {
+  display: block !important;
+  animation: headerSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  pointer-events: none;
+}
+
+@keyframes headerSlideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes headerSlideUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+/* Custom modern scrollbar for dropdown menus (Custom Select, Navbar, etc.) */
+.custom-select .overflow-y-auto::-webkit-scrollbar,
+.navbar-category-dropdown .overflow-y-auto::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-select .overflow-y-auto::-webkit-scrollbar-track,
+.navbar-category-dropdown .overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-select .overflow-y-auto::-webkit-scrollbar-thumb,
+.navbar-category-dropdown .overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+}
+
+.custom-select .overflow-y-auto::-webkit-scrollbar-thumb:hover,
+.navbar-category-dropdown .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
+
+.custom-select .overflow-y-auto,
+.navbar-category-dropdown .overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.btn-noise::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: url(../img/noise.png);
+  mix-blend-mode: screen;
+  opacity: 0.4;
+  z-index: 10;
+  pointer-events: none;
+}

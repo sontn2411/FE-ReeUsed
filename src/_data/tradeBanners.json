@@ -1,0 +1,63 @@
+[
+  {
+    "id": "shop-used-goods",
+    "badge": {
+      "text": "Giá tốt mỗi ngày",
+      "icon": "sparkles"
+    },
+    "title": "Đồ cũ chất lượng, giá tốt mỗi ngày",
+    "description": "Khám phá các thiết bị công nghệ chính hãng đã qua kiểm tra kỹ lưỡng, tiết kiệm chi phí và an tâm sử dụng.",
+    "features": [
+      "Kiểm định chất lượng kỹ càng",
+      "Bảo hành rõ ràng, đổi trả dễ"
+    ],
+    "button": {
+      "text": "Khám phá ngay",
+      "url": "/cua-hang/"
+    },
+    "image": {
+      "src": "/img/teach-gadgets-01.png",
+      "alt": "Đồ cũ chất lượng giá tốt mỗi ngày"
+    },
+    "theme": {
+      "cardGradient": "from-[#f3f9f5] via-[#e8f5ee] to-[#dcf1e5]",
+
+      "glowBg": "bg-emerald-400/20",
+      "badgeClass": "bg-white/85 text-primary ",
+      "badgeIconColor": "text-emerald-600",
+      "tagClass": "bg-white/75 text-emerald-950 border-white/90",
+      "tagIconColor": "text-primary",
+      "btnClass": "bg-primary hover:bg-[#062b26] text-white shadow-emerald-950/15"
+    }
+  },
+  {
+    "id": "buyback-service",
+    "badge": {
+      "text": "Thu mua đồ cũ",
+      "icon": "box"
+    },
+    "title": "Thu mua đồ cũ giá tốt, thanh toán liền tay",
+    "description": "Nhận thu gom thiết bị công nghệ và đồ điện tử cũ với mức giá hợp lý, định giá minh bạch và đến lấy tận nơi.",
+    "features": [
+      "Định giá công khai, không ép giá",
+      "Thu gom trực tiếp tận nơi"
+    ],
+    "button": {
+      "text": "Yêu cầu thu mua",
+      "url": "/muon-ban/"
+    },
+    "image": {
+      "src": "/img/teach-gadgets-02.png",
+      "alt": "Thu mua đồ cũ giá tốt, thanh toán liền tay"
+    },
+    "theme": {
+      "cardGradient": "from-[#fff9f4] via-[#fef3e7] to-[#fce6d3]",
+      "glowBg": "bg-amber-400/20",
+      "badgeClass": "bg-white/85 text-amber-900 ",
+      "badgeIconColor": "text-amber-700",
+      "tagClass": "bg-white/75 text-amber-950 border-white/90",
+      "tagIconColor": "text-amber-600",
+      "btnClass": "bg-[#9a3412] hover:bg-[#7c2d12] text-white shadow-amber-950/15"
+    }
+  }
+]

@@ -1,0 +1,81 @@
+{% from "components/icon.njk" import icon %}
+
+<!-- Trade & Buyback Banner Section (Bento Showcase UI) -->
+<section class="trade-banner-section mb-12 sm:mb-16">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
+    {% set bannerList = tradeBanners or [] %}
+    {% for item in bannerList %}
+      <div class="group relative overflow-hidden rounded-3xl bg-gradient-to-br {{ item.theme.cardGradient }}   p-6 sm:p-7 xl:p-8 shadow-xs  transition-all duration-300 flex flex-col-reverse sm:flex-row items-center justify-between gap-6 sm:gap-8">
+        
+        <!-- Ambient Decorative Glow -->
+        <div class="absolute -right-10 -bottom-10 w-60 h-60 {{ item.theme.glowBg }} rounded-full blur-3xl pointer-events-none transition-transform duration-500 group-hover:scale-125"></div>
+        <div class="absolute -left-12 -top-12 w-48 h-48 bg-white/40 rounded-full blur-2xl pointer-events-none"></div>
+
+        <!-- Cột trái: Nội dung mô tả (Desc) -->
+        <div class="w-full sm:w-[58%] flex flex-col relative z-10">
+          
+          <!-- Badge -->
+          {% if item.badge %}
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold {{ item.theme.badgeClass }}  shadow-2xs backdrop-blur-xs w-fit mb-3">
+              {{ icon(item.badge.icon, "w-3.5 h-3.5 " ~ item.theme.badgeIconColor) }}
+              <span>{{ item.badge.text }}</span>
+            </div>
+          {% endif %}
+
+          <!-- Tiêu đề -->
+          <h3 class="text-xl sm:text-2xl xl:text-[26px] font-black text-gray-900 tracking-tight leading-snug mb-2.5">
+            {{ item.title }}
+          </h3>
+
+          <!-- Đoạn mô tả -->
+          <p class="text-xs sm:text-sm text-gray-600/90 leading-relaxed mb-4 line-clamp-2 sm:line-clamp-none">
+            {{ item.description }}
+          </p>
+
+          <!-- Điểm nổi bật dạng thẻ Chip (Tags) -->
+          {% if item.features and item.features.length %}
+            <div class="flex flex-wrap gap-2 mb-5 sm:mb-6">
+              {% for feat in item.features %}
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg {{ item.theme.tagClass }} border text-[11px] font-semibold shadow-2xs backdrop-blur-xs">
+                  {{ icon("verified", "w-3.5 h-3.5 shrink-0 " ~ item.theme.tagIconColor) }}
+                  <span>{{ feat }}</span>
+                </span>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <!-- CTA Button -->
+          {% if item.button %}
+            <div>
+              <a
+                href="{{ item.button.url }}"
+                class="btn-noise  inline-flex items-center gap-2.5 px-5 py-2.5 sm:py-3 rounded-xl {{ item.theme.btnClass }} font-bold text-xs sm:text-sm transition-all duration-200 shadow-sm hover:shadow-md group/btn w-fit"
+              >
+                <span>{{ item.button.text }}</span>
+                <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center transition-transform duration-200 group-hover/btn:translate-x-1">
+                  {{ icon("chevron-right", "w-3.5 h-3.5 text-white") }}
+                </span>
+              </a>
+            </div>
+          {% endif %}
+
+        </div>
+
+        <!-- Cột phải: Ảnh vật thể Hero -->
+        {% if item.image %}
+          <div class="w-full sm:w-[42%] flex items-center justify-center relative shrink-0">
+            <div class="relative w-full flex items-center justify-center py-2 sm:py-0">
+              <img
+                src="{{ item.image.src }}"
+                alt="{{ item.image.alt or item.title }}"
+                class="w-full max-w-[220px] sm:max-w-none h-auto max-h-[180px] sm:max-h-[220px] xl:max-h-[240px] object-contain drop-shadow-xl transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-1.5"
+                loading="lazy"
+              >
+            </div>
+          </div>
+        {% endif %}
+
+      </div>
+    {% endfor %}
+  </div>
+</section>

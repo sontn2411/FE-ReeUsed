@@ -1,0 +1,25 @@
+{% for item in footer.socials %}
+  {% set itemUrl = item.url or (('https://zalo.me/' ~ (footer.brand.hotline | replace(' ', ''))) if item.name == 'Zalo' and footer.brand and footer.brand.hotline else '') %}
+  {% if itemUrl and item.icon %}
+    <a
+      href="{{ itemUrl }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="w-11 h-11 sm:w-12 sm:h-12 rounded-full shadow-md hover:shadow-xl hover:scale-110 active:scale-95 transition-all duration-200 flex items-center justify-center relative group/btn overflow-hidden {% if item.invert %}bg-black hover:bg-neutral-900{% endif %}"
+      aria-label="{{ item.name }}"
+      title="{{ item.name }}"
+    >
+      <span class="pointer-events-none absolute right-full mr-2.5 px-2.5 py-1 rounded-lg bg-gray-900/90 backdrop-blur-xs text-white text-xs font-semibold whitespace-nowrap opacity-0 -translate-x-1.5 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all duration-200 shadow-md z-20">
+        {{ item.name }}
+      </span>
+      <img
+        src="{{ item.icon }}"
+        alt="{{ item.name }}"
+        class="{% if item.invert %}w-5 h-5 sm:w-6 sm:h-6 invert{% else %}w-full h-full object-cover{% endif %}"
+        width="48"
+        height="48"
+        loading="lazy"
+      />
+    </a>
+  {% endif %}
+{% endfor %}

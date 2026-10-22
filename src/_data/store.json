@@ -1,0 +1,29 @@
+{
+  "title": "Cửa hàng",
+  "breadcrumbTitle": "Cửa hàng",
+  "banner": {
+    "image": "/img/banner-store.png",
+    "alt": "Cửa hàng đồ cũ ReeUsed",
+    "title": "Khám phá hàng ngàn món đồ chất lượng",
+    "titleHighlight": "tiết kiệm thông minh mỗi ngày",
+    "hasGradient": true,
+    "desc": "Tất cả sản phẩm đều được kiểm định chất lượng nghiêm ngặt, nguồn gốc minh bạch, giúp bạn an tâm sở hữu những món đồ yêu thích với chi phí tối ưu nhất.",
+    "stats": [
+      {
+        "icon": "shield-check",
+        "value": "100%",
+        "label": "Đã kiểm định kỹ lưỡng"
+      },
+      {
+        "icon": "package",
+        "value": "10.000+",
+        "label": "Sản phẩm đa dạng"
+      },
+      {
+        "icon": "heart",
+        "value": "Vì cộng đồng",
+        "label": "Tái sử dụng bền vững"
+      }
+    ]
+  }
+}

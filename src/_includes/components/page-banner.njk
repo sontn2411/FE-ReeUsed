@@ -1,0 +1,89 @@
+
+
+{% macro pageBanner(bannerUrl = "", title = "", desc = "", options = {}) %}
+  {% from "components/icon.njk" import icon %}
+
+  {% set defaultStats = [
+    { icon: "shield-check", value: "100%", label: "Giao dịch an toàn" },
+    { icon: "package", value: "50.000+", label: "Món đồ trao tay" },
+    { icon: "heart", value: "Vì cộng đồng", label: "Cùng nhau tạo giá trị" }
+  ] %}
+
+  {% set finalUrl = bannerUrl or options.url or "/img/banner-about.png" %}
+  {% set finalTitle = title or options.title or "Kết nối người mua và người bán" %}
+  {% set titleHighlight = options.titleHighlight or options.title2 or "" %}
+  {% set finalDesc = desc or options.desc or "" %}
+  {% set finalAlt = options.alt or finalTitle or "Banner" %}
+  {% set showStats = options.showStats if options.showStats is defined else true %}
+  {% set finalStats = options.stats or defaultStats %}
+  {% set hasGradient = options.hasGradient if options.hasGradient is defined else (options.gradient if options.gradient is defined else false) %}
+  <section class="banner-hero-section pt-3 sm:pt-4 pb-6 sm:pb-8">
+    <div class="relative w-full aspect-[1024/300] overflow-hidden rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-shadow group select-none">
+      
+      <!-- Background Banner Image -->
+      <img
+        src="{{ finalUrl }}"
+        alt="{{ finalAlt }}"
+        class="w-full h-full object-cover object-center"
+        loading="eager"
+        fetchpriority="high"
+      >
+
+      <!-- Left Gradient Overlay: Làm nổi bật nội dung bên trái (Màu chủ đạo #cde3d5) -->
+      {% if hasGradient %}
+        <div class="absolute inset-y-0 left-0 w-[85%] sm:w-[73%] md:w-[65%] pointer-events-none z-[1] bg-gradient-to-r from-[#cde3d5] via-[#cde3d5]/80 to-transparent"></div>
+      {% endif %}
+
+      <!-- Pinned Top Corner Breadcrumb: Cố định vị trí ở góc trên bên trái banner -->
+      <div class="absolute top-3.5 left-4 sm:top-5 sm:left-8 md:top-6 md:left-10 lg:top-7 lg:left-14 xl:top-8 xl:left-16 z-20 pointer-events-auto">
+        {% set breadcrumbTitle = options.breadcrumbTitle or options.crumb or finalTitle %}
+        {% set breadcrumbs = options.breadcrumbs or breadcrumbs %}
+        {% include "components/breadcrumb.njk" %}
+      </div>
+
+      <!-- Overlay Content: Nằm gọn ở nửa bên trái, phía dưới breadcrumb, không lấn sang nửa phải -->
+      <div class="absolute inset-0 flex items-center z-10 px-4 py-3 sm:px-8 sm:py-6 md:px-10 lg:px-14 xl:px-16 pointer-events-none">
+        <div class="max-w-[58%] sm:max-w-[54%] md:max-w-[50%] lg:max-w-[48%] flex flex-col pt-6 sm:pt-8 md:pt-9 lg:pt-10 gap-2 ">
+          
+          <!-- Banner Title -->
+          <h1 class="font-extrabold text-xs sm:text-base md:text-xl lg:text-2xl xl:text-3xl leading-[1.25] sm:leading-tight tracking-tight">
+            <span class="block text-slate-900 font-bold">{{ finalTitle }}</span>
+            {% if titleHighlight %}
+              <span class="block text-primary font-extrabold mt-0.5 sm:mt-1">{{ titleHighlight }}</span>
+            {% endif %}
+          </h1>
+
+          <!-- Banner Description -->
+          {% if finalDesc %}
+            <p class="mt-1 sm:mt-2 md:mt-2.5 lg:mt-3 text-[9px] sm:text-xs md:text-sm lg:text-base text-slate-700 font-medium leading-tight sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
+              {{ finalDesc }}
+            </p>
+          {% endif %}
+
+          <!-- Thống kê & Chỉ số uy tín (Render động từ data stats) -->
+          {% if showStats and finalStats.length %}
+            <div class="mt-2 sm:mt-3.5 md:mt-4 flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-4 lg:gap-6 pt-1 sm:pt-2">
+              {% for item in finalStats %}
+                <div class="flex items-center gap-2 sm:gap-2.5">
+                  <div class="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-full bg-emerald-800/10 flex items-center justify-center shrink-0">
+                    {{ icon(item.icon, "w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-emerald-800") }}
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-extrabold text-[11px] sm:text-xs md:text-sm lg:text-base text-slate-900 leading-tight">{{ item.value }}</span>
+                    <span class="text-[8px] sm:text-[10px] md:text-xs text-slate-600 font-medium leading-tight mt-0.5 whitespace-nowrap">{{ item.label }}</span>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </section>
+{% endmacro %}
+
+{# Alias ngắn gọn #}
+{% macro banner(bannerUrl, title, desc, options) %}
+  {{ pageBanner(bannerUrl, title, desc, options) }}
+{% endmacro %}
