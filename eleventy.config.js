@@ -14,6 +14,7 @@ module.exports = function (eleventyConfig) {
   // Tắt DOM diffing: ép trình duyệt reload lại trang sạch hoàn toàn khi sửa code,
   // tránh việc các instance SmoothScrollbar và event listener tích tụ gây lag cuộn trang.
   eleventyConfig.setServerOptions({
+    domDiff: false,
     domdiff: false,
   });
 

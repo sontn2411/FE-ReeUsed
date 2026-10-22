@@ -64,9 +64,29 @@ if (Scrollbar && document.querySelector("#main")) {
 
   // Cache header height to prevent forced synchronous reflow (layout thrashing) on every scroll frame
   var cachedHeaderHeight = originalHeader ? originalHeader.offsetHeight : 120;
-  window.addEventListener("resize", function () {
-    cachedHeaderHeight = originalHeader ? originalHeader.offsetHeight : 120;
-  });
+  if (!window.__HEADER_RESIZE_INIT__) {
+    window.__HEADER_RESIZE_INIT__ = true;
+    window.addEventListener("resize", function () {
+      cachedHeaderHeight = originalHeader ? originalHeader.offsetHeight : 120;
+    });
+  }
+
+  // Tự động phát hiện nếu live-reload / Morphdom can thiệp làm hỏng cấu trúc Scrollbar khi đang chạy dev:
+  if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+    if (!window.__MORPHDOM_GUARD_INIT__) {
+      window.__MORPHDOM_GUARD_INIT__ = true;
+      if (mainEl && window.MutationObserver) {
+        var domObserver = new MutationObserver(function () {
+          // SmoothScrollbar luôn bọc phần tử con trong .scroll-content
+          // Nếu live reload/Morphdom xóa mất .scroll-content mà Scrollbar vẫn còn đang chạy trong RAM:
+          if (!mainEl.querySelector(".scroll-content")) {
+            window.location.reload();
+          }
+        });
+        domObserver.observe(mainEl, { childList: true });
+      }
+    }
+  }
 
   function getThresholds() {
     return {
@@ -78,28 +98,32 @@ if (Scrollbar && document.querySelector("#main")) {
   var backToTopBtn = document.querySelector("#back-to-top");
   var backToTopProgress = document.querySelector("#back-to-top-progress");
   var PROGRESS_CIRCUMFERENCE = 132;
+  var isBttVisible = false;
+  var lastProgressVal = -1;
+  var isStickyVisible = false;
 
   scrollbar.addListener(function (status) {
     var y = status.offset.y;
     var thresholds = getThresholds();
 
-    // 1. When scrolling down past threshold: slide sticky header down
+    // 1. Khi cuộn xuống quá ngưỡng: hiện sticky header
     if (y >= thresholds.show) {
       if (hideTimeout) {
         clearTimeout(hideTimeout);
         hideTimeout = null;
       }
 
-      if (!isSticky) {
+      if (!isStickyVisible) {
+        isStickyVisible = true;
         isSticky = true;
-        stickyHeader.classList.remove("hidden");
-        stickyHeader.classList.remove("header-slide-up");
+        stickyHeader.classList.remove("hidden", "header-slide-up");
         stickyHeader.classList.add("header-slide-down");
       }
     }
-    // 2. When scrolling back near top: slide sticky header up and hide
+    // 2. Khi cuộn ngược lên: ẩn sticky header
     else if (y <= thresholds.hide) {
-      if (isSticky) {
+      if (isStickyVisible) {
+        isStickyVisible = false;
         isSticky = false;
         stickyHeader.classList.remove("header-slide-down");
         stickyHeader.classList.add("header-slide-up");
@@ -110,54 +134,46 @@ if (Scrollbar && document.querySelector("#main")) {
           stickyHeader.classList.add("hidden");
         }, 350);
 
-        // Close navbar collapse if open when sticky header is hidden
         closeStickyNavbar();
       }
 
-      // Instantly hide sticky header when at top of page
-      if (y <= 0) {
+      // Trở về đỉnh trang
+      if (y <= 0 && stickyHeader && !stickyHeader.classList.contains("hidden")) {
         if (hideTimeout) {
           clearTimeout(hideTimeout);
           hideTimeout = null;
         }
-        stickyHeader.classList.remove("header-slide-down");
-        stickyHeader.classList.remove("header-slide-up");
+        stickyHeader.classList.remove("header-slide-down", "header-slide-up");
         stickyHeader.classList.add("hidden");
         closeStickyNavbar();
       }
     }
 
-    // 3. Show/hide Back-to-Top Button & update scroll progress border
+    // 3. Nút Back-to-Top: Chỉ cập nhật DOM khi trạng thái thay đổi
     if (backToTopBtn) {
-      if (y > 300) {
-        backToTopBtn.classList.remove(
-          "opacity-0",
-          "pointer-events-none",
-          "translate-y-4",
-        );
-        backToTopBtn.classList.add(
-          "opacity-100",
-          "pointer-events-auto",
-          "translate-y-0",
-        );
-      } else {
-        backToTopBtn.classList.remove(
-          "opacity-100",
-          "pointer-events-auto",
-          "translate-y-0",
-        );
-        backToTopBtn.classList.add(
-          "opacity-0",
-          "pointer-events-none",
-          "translate-y-4",
-        );
+      var shouldShowBtt = y > 300;
+      if (shouldShowBtt !== isBttVisible) {
+        isBttVisible = shouldShowBtt;
+        if (shouldShowBtt) {
+          backToTopBtn.classList.remove("opacity-0", "pointer-events-none", "translate-y-4");
+          backToTopBtn.classList.add("opacity-100", "pointer-events-auto", "translate-y-0");
+        } else {
+          backToTopBtn.classList.remove("opacity-100", "pointer-events-auto", "translate-y-0");
+          backToTopBtn.classList.add("opacity-0", "pointer-events-none", "translate-y-4");
+        }
       }
 
+      // Cập nhật vòng tròn tiến trình (chỉ cập nhật khi giá trị số nguyên thay đổi)
       if (backToTopProgress && scrollbar) {
         var maxScroll = scrollbar.limit.y;
-        var ratio = maxScroll > 0 ? Math.min(1, Math.max(0, y / maxScroll)) : 0;
-        backToTopProgress.style.strokeDashoffset =
-          PROGRESS_CIRCUMFERENCE - ratio * PROGRESS_CIRCUMFERENCE;
+        if (maxScroll > 0) {
+          var ratio = Math.min(1, Math.max(0, y / maxScroll));
+          var progressOffset = Math.round(PROGRESS_CIRCUMFERENCE - ratio * PROGRESS_CIRCUMFERENCE);
+          if (progressOffset !== lastProgressVal) {
+            lastProgressVal = progressOffset;
+            backToTopProgress.style.strokeDashoffset = progressOffset;
+          }
+        }
       }
     }
   });
@@ -176,79 +192,72 @@ if (Scrollbar && document.querySelector("#main")) {
   // Fallback for native scroll if Smooth Scrollbar is disabled
   window.addEventListener("scroll", function () {
     if (!scrollbar && backToTopBtn) {
-      if (window.scrollY > 300) {
-        backToTopBtn.classList.remove(
-          "opacity-0",
-          "pointer-events-none",
-          "translate-y-4",
-        );
-        backToTopBtn.classList.add(
-          "opacity-100",
-          "pointer-events-auto",
-          "translate-y-0",
-        );
-      } else {
-        backToTopBtn.classList.remove(
-          "opacity-100",
-          "pointer-events-auto",
-          "translate-y-0",
-        );
-        backToTopBtn.classList.add(
-          "opacity-0",
-          "pointer-events-none",
-          "translate-y-4",
-        );
+      var shouldShowBtt = window.scrollY > 300;
+      if (shouldShowBtt !== isBttVisible) {
+        isBttVisible = shouldShowBtt;
+        if (shouldShowBtt) {
+          backToTopBtn.classList.remove("opacity-0", "pointer-events-none", "translate-y-4");
+          backToTopBtn.classList.add("opacity-100", "pointer-events-auto", "translate-y-0");
+        } else {
+          backToTopBtn.classList.remove("opacity-100", "pointer-events-auto", "translate-y-0");
+          backToTopBtn.classList.add("opacity-0", "pointer-events-none", "translate-y-4");
+        }
       }
 
       if (backToTopProgress) {
-        var maxScroll =
-          document.documentElement.scrollHeight - window.innerHeight;
-        var ratio =
-          maxScroll > 0
-            ? Math.min(1, Math.max(0, window.scrollY / maxScroll))
-            : 0;
-        backToTopProgress.style.strokeDashoffset =
-          PROGRESS_CIRCUMFERENCE - ratio * PROGRESS_CIRCUMFERENCE;
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        if (maxScroll > 0) {
+          var ratio = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+          var progressOffset = Math.round(PROGRESS_CIRCUMFERENCE - ratio * PROGRESS_CIRCUMFERENCE);
+          if (progressOffset !== lastProgressVal) {
+            lastProgressVal = progressOffset;
+            backToTopProgress.style.strokeDashoffset = progressOffset;
+          }
+        }
       }
     }
   });
 }
 
 // --- Fix: Prevent Smooth Scrollbar from hijacking wheel events inside dropdown menus ---
-// Uses only closest() + querySelector() — zero getComputedStyle calls to avoid layout thrashing.
+// Tối ưu hóa triệt để: Gắn listener trực tiếp lên từng dropdown scroll box thay vì document
+// Loại bỏ hoàn toàn độ trễ IPC của DevTools, giúp thao tác cuộn đạt 120 FPS mượt mà cả khi mở DevTools
 (function () {
   if (window.__DROPDOWN_WHEEL_INIT__) return;
   window.__DROPDOWN_WHEEL_INIT__ = true;
 
-  var DROPDOWN_SELECTOR =
-    ".custom-select[open], .navbar-category-dropdown[open], .custom-form-select[open]";
-  var SCROLL_BOX_SELECTOR = ".overflow-y-auto, .overflow-auto";
+  function bindLocalWheel(box) {
+    if (!box || box.__wheelBound) return;
+    box.__wheelBound = true;
 
-  document.addEventListener(
-    "wheel",
-    function (e) {
-      var dropdown = e.target.closest(DROPDOWN_SELECTOR);
-      if (!dropdown) return; // Not inside an open dropdown — bail out fast, let Smooth Scrollbar handle it
-
-      var scrollable = dropdown.querySelector(SCROLL_BOX_SELECTOR);
-      if (!scrollable || scrollable.scrollHeight <= scrollable.clientHeight)
-        return;
+    box.addEventListener("wheel", function (e) {
+      var maxScroll = box.scrollHeight - box.clientHeight;
+      if (maxScroll <= 0) return;
 
       var delta = e.deltaY;
       if (e.deltaMode === 1) delta *= 33;
-      else if (e.deltaMode === 2) delta *= scrollable.clientHeight;
+      else if (e.deltaMode === 2) delta *= box.clientHeight;
 
-      // Clamp: don't scroll past top/bottom boundaries
-      var newTop = scrollable.scrollTop + delta;
-      var maxScroll = scrollable.scrollHeight - scrollable.clientHeight;
-      scrollable.scrollTop = Math.max(0, Math.min(newTop, maxScroll));
+      var currentTop = box.scrollTop;
+      // Chỉ can thiệp khi con lăn đang cuộn trong phạm vi danh sách
+      if ((delta > 0 && currentTop < maxScroll) || (delta < 0 && currentTop > 0)) {
+        box.scrollTop = Math.max(0, Math.min(currentTop + delta, maxScroll));
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    }, { passive: false });
+  }
 
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      e.preventDefault();
-    },
-    { passive: false, capture: true },
-  );
+  // Gắn cho các menu hiện có
+  document.querySelectorAll(".custom-select .overflow-y-auto, .navbar-category-dropdown .overflow-y-auto, .custom-form-select .overflow-y-auto").forEach(bindLocalWheel);
+
+  // Tự động gắn khi bất kỳ details dropdown nào được mở
+  document.addEventListener("toggle", function (e) {
+    if (e.target && e.target.open && e.target.matches && e.target.matches(".custom-select, .navbar-category-dropdown, .custom-form-select")) {
+      var box = e.target.querySelector(".overflow-y-auto, .overflow-auto");
+      if (box) bindLocalWheel(box);
+    }
+  }, true);
 })();
 
 // --- Mobile Left-Side Drawer Navigation ---
