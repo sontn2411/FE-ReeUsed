@@ -37,7 +37,7 @@
     <!-- Right Items: Loop through benefits array using icon component -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-4 md:gap-6 lg:gap-8 flex-1 w-full items-stretch">
       {% for item in benefits %}
-        <div class="flex flex-col lg:flex-row items-center lg:items-start text-center lg:text-left gap-2 lg:gap-3.5 h-full">
+        <div class="flex flex-row items-center lg:items-start text-center lg:text-left gap-2 lg:gap-3.5 h-full">
           <div class="w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-white/85 border border-[#cbe4d3] flex items-center justify-center shrink-0 shadow-xs">
             {{ icon(item.icon, "w-6 h-6 text-primary") }}
           </div>
