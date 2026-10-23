@@ -18,7 +18,7 @@
   {% set finalStats = options.stats or defaultStats %}
   {% set hasGradient = options.hasGradient if options.hasGradient is defined else (options.gradient if options.gradient is defined else false) %}
   <section class="banner-hero-section pt-3 sm:pt-4 pb-6 sm:pb-8">
-    <div class="relative w-full min-h-[260px] sm:min-h-[290px] md:min-h-[320px] lg:min-h-[340px] xl:min-h-[340px] xl:aspect-[1024/300] overflow-hidden rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-shadow group select-none">
+    <div class="relative w-full min-h-[260px] sm:min-h-[290px] md:min-h-[320px] lg:min-h-[340px] xl:min-h-[340px] xl:aspect-[1024/300] overflow-hidden rounded-xl sm:rounded-2xl shadow-sm  transition-shadow group select-none">
       
       <!-- Background Banner Image -->
       <img
@@ -45,7 +45,7 @@
         </div>
 
         <!-- Khối nội dung chính: Chiếm trọn 100% bề ngang trên mobile, nửa trái trên desktop -->
-        <div class="w-full max-w-full sm:max-w-[62%] md:max-w-[56%] lg:max-w-[52%] xl:max-w-[48%] flex flex-col gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3 my-auto">
+        <div class="w-full max-w-full sm:max-w-[90%] md:max-w-[80%] lg:max-w-[60%] xl:max-w-[48%] flex flex-col gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3 my-auto">
           
           <!-- Banner Title -->
           <h1 class="font-extrabold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl leading-snug sm:leading-tight tracking-tight">
@@ -76,6 +76,29 @@
                   </div>
                 </div>
               {% endfor %}
+            </div>
+          {% endif %}
+
+{% if options.cta %}
+            <div class="mt-3 sm:mt-4 pointer-events-auto">
+              {% if options.cta.modal %}
+                <button
+                  type="button"
+                  data-modal-open="{{ options.cta.modal }}"
+                  class="btn-noise inline-flex items-center justify-center gap-2 bg-primary hover:bg-[#07332e] text-white font-bold text-xs sm:text-sm px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.98] w-fit"
+                >
+                  {{ icon(options.cta.icon or "send", "w-4 h-4") }}
+                  <span>{{ options.cta.text }}</span>
+                </button>
+              {% else %}
+                <a
+                  href="{{ options.cta.url or '#' }}"
+                  class="btn-noise inline-flex items-center justify-center gap-2 bg-primary hover:bg-[#07332e] text-white font-bold text-xs sm:text-sm px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.98] w-fit"
+                >
+                  {{ icon(options.cta.icon or "send", "w-4 h-4") }}
+                  <span>{{ options.cta.text }}</span>
+                </a>
+              {% endif %}
             </div>
           {% endif %}
 

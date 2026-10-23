@@ -63,6 +63,13 @@
     </script>
 
     <link rel="stylesheet" type="text/css" href="/assets/main.css" />
+    {# CSS riêng cho từng page (chỉ load khi page khai báo) #}
+    {% if extraCss %}
+      {% set cssList = [extraCss] if extraCss is string else extraCss %}
+      {% for css in cssList %}
+        <link rel="stylesheet" type="text/css" href="{{ css }}" />
+      {% endfor %}
+    {% endif %}
   </head>
   <body class="h-full overflow-hidden">
     <!-- Mobile Left Offcanvas Navigation Drawer -->
@@ -110,8 +117,12 @@
     </div>
 
     <script src="/js/main.js"></script>
+    {# JS riêng cho từng page (chỉ load khi page khai báo) #}
     {% if extraJs %}
-      <script src="{{ extraJs }}"></script>
+      {% set jsList = [extraJs] if extraJs is string else extraJs %}
+      {% for js in jsList %}
+        <script src="{{ js }}"></script>
+      {% endfor %}
     {% endif %}
   </body>
 </html>

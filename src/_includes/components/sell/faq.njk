@@ -1,0 +1,73 @@
+{% from "components/icon.njk" import icon %}
+
+{# Card FAQ — index: số thứ tự gốc (1..N, duy nhất cho id/aria), order: thứ tự hiển thị trên mobile #}
+{% macro faqCard(item, index, order) %}
+  <div class="faq-item bg-gray-50 border border-gray-100 rounded-md" style="order: {{ order }}" data-faq-item>
+    <h3>
+      <button
+        type="button"
+        class="faq-trigger w-full flex items-start justify-between gap-3 p-4 sm:p-5 text-left cursor-pointer"
+        id="faq-trigger-{{ index }}"
+        aria-expanded="false"
+        aria-controls="faq-panel-{{ index }}"
+        data-faq-trigger
+      >
+        <span class="faq-title font-bold text-sm sm:text-base text-gray-900">
+          {{ item.question }}
+        </span>
+        <span class="faq-chevron w-8 h-8 shrink-0 rounded-full bg-[#e5f3ea] flex items-center justify-center">
+          {{ icon("chevron-down", "w-4 h-4 text-primary") }}
+        </span>
+      </button>
+    </h3>
+
+    <div
+      id="faq-panel-{{ index }}"
+      role="region"
+      aria-labelledby="faq-trigger-{{ index }}"
+      class="faq-panel"
+      data-faq-panel
+    >
+      <div class="px-4 sm:px-5 pb-4 sm:pb-5">
+        <p class="faq-answer text-xs sm:text-sm text-gray-500 leading-relaxed">
+          {{ item.answer }}
+        </p>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+
+<!-- Câu hỏi thường gặp -->
+<section class="py-8 sm:py-10">
+  <div class="mb-5 sm:mb-7">
+    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
+      Câu hỏi thường gặp
+    </h2>
+    <p class="text-xs sm:text-sm text-gray-500 mt-1">
+      Giải đáp những thắc mắc phổ biến nhất về dịch vụ thu mua của ReeUsed.
+    </p>
+  </div>
+
+  {#
+    2 cột ĐỘC LẬP (không dùng grid rows chung):
+    - Mở card cột trái -> cột phải không đổi height, không bị đẩy xuống.
+    - Mobile (<md): .faq-col là display:contents nên các card quay lại đúng thứ tự 1..N (nhờ inline order).
+  #}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 items-start">
+    <div class="faq-col contents md:flex md:flex-col md:gap-4">
+      {% for item in buybackFaq %}
+        {% if loop.index0 % 2 == 0 %}
+          {{ faqCard(item, loop.index, loop.index0 * 2) }}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="faq-col contents md:flex md:flex-col md:gap-4">
+      {% for item in buybackFaq %}
+        {% if loop.index0 % 2 == 1 %}
+          {{ faqCard(item, loop.index, loop.index0 * 2 + 1) }}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>

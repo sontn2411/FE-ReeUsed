@@ -1,0 +1,51 @@
+/* --- FAQ accordion: trượt lên / trượt xuống + đổi màu khi mở ---
+   File riêng, chỉ được load ở trang có dùng component FAQ (không nhúng vào main.css). */
+
+.faq-item {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.faq-panel {
+  overflow: hidden;
+  height: 0;
+  transition: height 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-title,
+.faq-answer {
+  transition: color 0.25s ease;
+}
+
+.faq-chevron {
+  transition:
+    background-color 0.25s ease,
+    rotate 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-chevron svg {
+  transition: color 0.25s ease;
+}
+
+.faq-item.is-open {
+  background-color: var(--color-primary, #0a433c);
+  border-color: var(--color-primary, #0a433c);
+}
+
+.faq-item.is-open .faq-title {
+  color: #ffffff;
+}
+
+.faq-item.is-open .faq-answer {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.faq-item.is-open .faq-chevron {
+  background-color: rgba(255, 255, 255, 0.15);
+  rotate: 180deg;
+}
+
+.faq-item.is-open .faq-chevron svg {
+  color: #ffffff;
+}

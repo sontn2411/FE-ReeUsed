@@ -18,12 +18,14 @@
           class=" group flex flex-col items-center cursor-pointer select-none"
         >
           <!-- Circular Wrapper with green background matching reference image -->
-          <div class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 aspect-square rounded-full bg-[#e5f3ea] flex items-center justify-center p-3.5 sm:p-5 md:p-6 transition-all duration-300 mx-auto">
-            {% if cat.icon %}
+          <div class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 aspect-square rounded-full bg-[#e5f3ea] flex items-center justify-center p-3 sm:p-4 md:p-5 lg:p-5 transition-all duration-300 mx-auto">
+            {% if cat.image or cat.icon %}
               <img
-                src="{{ cat.icon }}"
+                src="{{ cat.image or cat.icon }}"
                 alt="{{ cat.label }}"
-                class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain transition-transform duration-300 drop-shadow-xs"
+                class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain transition-transform duration-300 group-hover:scale-105"
+                width="256"
+                height="256"
                 loading="lazy"
               >
             {% else %}

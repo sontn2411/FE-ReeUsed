@@ -1,0 +1,80 @@
+{% from "components/icon.njk" import icon %}
+
+
+<section class="py-8 sm:py-10">
+  <div class="mb-5 sm:mb-7">
+    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
+      Quy trình thu mua đơn giản
+    </h2>
+    <p class="text-xs sm:text-sm text-gray-500 mt-1">
+      Chỉ 4 bước, nhanh gọn, tiện lợi
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:flex lg:flex-row lg:items-stretch lg:gap-0 min-[1200px]:justify-between">
+    {% set buybackSteps = [
+      { image: "/img/process-01.webp", title: "Đăng ký", desc: "Bạn gửi thông tin món đồ cần bán qua hotline, form hoặc nhắn tin trực tiếp trên website/app.", noteIcon: "phone", note: "Hotline", noteNoWrap: contact.hotline, noteLink: "tel:" ~ (contact.hotline | replace(" ", "")) },
+      { image: "/img/process-02.webp", title: "Định giá", desc: "Nhân viên sẽ liên hệ, kiểm tra tình trạng đồ và đưa ra mức giá thu mua phù hợp với thị trường.", noteIcon: "clock", note: "Nhanh trong 30 phút" },
+      { image: "/img/process-03.webp", title: "Xác nhận", desc: "Sau khi bạn đồng ý với giá, chúng tôi sẽ thống nhất thời gian và địa điểm thu mua (hoặc đến tận nơi).", noteIcon: "verified", note: "Minh bạch rõ ràng" },
+      { image: "/img/process-04.webp", title: "Thanh toán", desc: "Bạn nhận tiền mặt hoặc chuyển khoản ngay sau khi hoàn tất giao dịch.", noteIcon: "lock", note: "Nhanh gọn an toàn" }
+    ] %}
+    {% for step in buybackSteps %}
+      {% if not loop.first %}
+        <!-- Mũi tên giữa các bước (desktop) -->
+        <div class="hidden lg:flex items-center justify-center px-1.5 xl:px-2 shrink-0 text-primary">
+          {{ icon("arrow-right", "w-5 h-5") }}
+        </div>
+        <!-- Mũi tên xuống (mobile) -->
+        <div class="sm:hidden flex justify-center text-primary rotate-90">
+          {{ icon("arrow-right", "w-5 h-5") }}
+        </div>
+      {% endif %}
+
+      <div class="flex-1 min-w-0 min-[1200px]:flex-none min-[1200px]:w-[200px] min-[1280px]:w-[240px] 2xl:w-[280px] bg-gray-50 rounded-md overflow-hidden flex flex-col">
+        <!-- Ảnh bước -->
+        <div class="relative">
+          <img
+            src="{{ step.image }}"
+            alt="{{ step.title }} - {{ step.desc }}"
+            class="w-full h-32 sm:h-40 md:h-48 object-cover object-center"
+            width="2048"
+            height="2048"
+            loading="lazy"
+          >
+          <div class="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 ">
+              <span class=" btn-noise   w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary text-white text-xs sm:text-sm font-bold flex items-center justify-center shadow">
+              {{ loop.index }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Nội dung bước -->
+        <div class="p-3 sm:p-3.5 flex-1 flex flex-col justify-center">
+          <h3 class="font-bold text-sm sm:text-base text-gray-900">
+            {{ step.title }}
+          </h3>
+          <p class="text-[11px] sm:text-xs text-gray-500 mt-1 leading-relaxed">
+            {{ step.desc }}
+          </p>
+
+          <!-- Note -->
+          <div class="mt-2.5 flex items-center gap-2 w-full bg-[#d7e7de] text-primary rounded-md px-2.5 sm:px-3 py-1.5 sm:py-2">
+            {{ icon(step.noteIcon, "w-4 h-4 sm:w-5 sm:h-5 shrink-0 text-primary") }}
+            {% if step.noteLink %}
+              <a
+                href="{{ step.noteLink }}"
+                class=" text-xs sm:text-sm font-bold hover:underline"
+              >
+                {{ step.note }}{% if step.noteNoWrap %} <span class="whitespace-nowrap">{{ step.noteNoWrap }}</span>{% endif %}
+              </a>
+            {% else %}
+              <span class="text-xs sm:text-sm font-bold">
+                {{ step.note }}{% if step.noteNoWrap %} <span class="whitespace-nowrap">{{ step.noteNoWrap }}</span>{% endif %}
+              </span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>

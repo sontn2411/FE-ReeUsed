@@ -1,0 +1,111 @@
+{% from "components/icon.njk" import icon %}
+{% from "components/input.njk" import input %}
+{% from "components/form-select.njk" import formSelect %}
+
+<!-- Modal Đăng ký thu mua (mở khi click CTA banner) -->
+<div
+  id="buyback-modal"
+  data-modal
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="buyback-modal-title"
+  class="hidden fixed inset-0 z-[100] overflow-y-auto p-4 bg-black/50 backdrop-blur-sm"
+>
+  <style>
+    [data-modal] { opacity: 0; transition: opacity .2s ease; }
+    [data-modal].is-open { opacity: 1; }
+    [data-modal] .modal-card { transform: translateY(12px); transition: transform .2s ease; }
+    [data-modal].is-open .modal-card { transform: translateY(0); }
+  </style>
+
+  <div class="modal-card relative w-full max-w-md m-auto bg-white rounded-2xl shadow-2xl p-6 sm:p-7">
+    <!-- Nút đóng -->
+    <button
+      type="button"
+      data-modal-close
+      class="absolute top-3 right-3 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition-colors"
+      aria-label="Đóng"
+    >
+      {{ icon("close", "w-4 h-4") }}
+    </button>
+
+    <h3 id="buyback-modal-title" class="text-lg sm:text-xl font-bold text-gray-900 pr-8">
+      Đăng ký thu mua
+    </h3>
+    <p class="text-xs sm:text-sm text-gray-500 mt-1">Nhận báo giá nhanh nhất từ ReeUsed</p>
+
+    <form data-modal-form class="mt-6 space-y-5">
+      <!-- Họ và tên -->
+      {{ input(
+        name = "fullName",
+        id = "buyback-name",
+        label = "Họ và tên",
+        type = "text",
+        placeholder = "Nhập họ và tên của bạn",
+        required = true,
+        autocomplete = "name"
+      ) }}
+
+      <!-- Số điện thoại -->
+      {{ input(
+        name = "phone",
+        id = "buyback-phone",
+        label = "Số điện thoại",
+        type = "tel",
+        placeholder = "Nhập số điện thoại của bạn",
+        required = true,
+        autocomplete = "tel"
+      ) }}
+
+      <!-- Chọn danh mục (component formSelect - dùng chung dữ liệu categories) -->
+      {{ formSelect(
+        name = "category",
+        id = "buyback-category",
+        label = "Chọn danh mục",
+        placeholder = "Chọn danh mục",
+        options = categories,
+        required = true
+      ) }}
+      <p data-category-error class="hidden text-[11px] font-medium text-red-500">
+        Vui lòng chọn danh mục
+      </p>
+
+      <!-- Ghi chú (Textarea cùng style với component input) -->
+      <div>
+        <label
+          for="buyback-note"
+          class="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 select-none"
+        >
+          <span>Ghi chú</span>
+        </label>
+        <textarea
+          id="buyback-note"
+          name="note"
+          rows="3"
+          placeholder="Mô tả sản phẩm, tình trạng, số lượng..."
+          class="w-full px-4 py-3 rounded-md bg-[#fbfdfc] border border-slate-200/90 text-sm text-slate-800 placeholder-slate-400 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all outline-none resize-y min-h-[96px]"
+        ></textarea>
+      </div>
+
+      <!-- Button -->
+      <button
+        type="submit"
+        class="w-full inline-flex items-center justify-center gap-2 bg-primary hover:bg-[#07332e] text-white font-bold text-sm sm:text-base px-5 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.98] cursor-pointer"
+      >
+        {{ icon("send", "w-4 h-4") }}
+        Gửi yêu cầu
+      </button>
+
+      <p class="text-[11px] sm:text-xs text-gray-500 text-center">Chúng tôi sẽ liên hệ trong vòng 12h</p>
+    </form>
+
+    <!-- Trạng thái gửi thành công -->
+    <div data-modal-success class="hidden text-center py-6">
+      <div class="w-14 h-14 mx-auto rounded-full bg-[#e5f3ea] flex items-center justify-center mb-3">
+        {{ icon("verified", "w-7 h-7 text-primary") }}
+      </div>
+      <h4 class="font-bold text-gray-900">Đã gửi yêu cầu!</h4>
+      <p class="text-xs sm:text-sm text-gray-500 mt-1">Chúng tôi sẽ liên hệ trong vòng 12h.</p>
+    </div>
+  </div>
+</div>

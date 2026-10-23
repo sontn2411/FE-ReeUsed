@@ -3,6 +3,8 @@ const tailwindcss = require("eleventy-plugin-tailwindcss-4");
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/img");
   eleventyConfig.addPassthroughCopy("src/js");
+  // CSS riêng theo page (vd: styles/faq.css -> css/faq.css), chỉ copy file được khai báo
+  eleventyConfig.addPassthroughCopy({ "src/styles/faq.css": "css/faq.css" });
 
   eleventyConfig.addPlugin(tailwindcss, {
     input: "styles/main.css",

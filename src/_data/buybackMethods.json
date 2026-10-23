@@ -1,0 +1,34 @@
+[
+  {
+    "value": "tai-cua-hang",
+    "title": "Tại cửa hàng",
+    "icon": "store",
+    "desc": "Mang sản phẩm đến bất kỳ cửa hàng ReeUsed nào để được kiểm tra, định giá và thu mua trực tiếp tại chỗ.",
+    "noteIcon": "location",
+    "note": "6 chi nhánh toàn quốc"
+  },
+  {
+    "value": "thu-mua-tai-nha",
+    "title": "Thu mua tại nhà",
+    "icon": "location",
+    "desc": "Nhân viên đến tận nơi kiểm tra sản phẩm và hoàn tất thu mua ngay tại nhà bạn, không mất công di chuyển.",
+    "noteIcon": "clock",
+    "note": "Hẹn lịch trong 24 giờ"
+  },
+  {
+    "value": "thu-mua-tu-xa",
+    "title": "Thu mua từ xa",
+    "icon": "box",
+    "desc": "Đóng gói sản phẩm, chúng tôi hỗ trợ đơn vị vận chuyển đến cửa hàng gần bạn và thanh toán ngay khi nhận hàng.",
+    "noteIcon": "shield-check",
+    "note": "Vận chuyển toàn quốc"
+  },
+  {
+    "value": "bao-gia-truc-tuyen",
+    "title": "Báo giá trực tuyến",
+    "icon": "phone",
+    "desc": "Gửi hình ảnh và thông tin sản phẩm qua hotline hoặc website, nhận mức giá thu mua sơ bộ trong vài phút.",
+    "noteIcon": "bolt",
+    "note": "Phản hồi 5 phút"
+  }
+]

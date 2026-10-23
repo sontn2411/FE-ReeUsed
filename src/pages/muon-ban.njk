@@ -1,9 +1,53 @@
 ---
 title: Muốn bán
+description: Biến đồ cũ thành giá trị mới! ReeUsed thu mua đa dạng điện thoại, laptop, máy tính bảng, đồng hồ, máy ảnh, đồ gia dụng với định giá nhanh và thanh toán an toàn.
 layout: layouts/base.njk
 permalink: /muon-ban/
+extraCss:
+  - /css/faq.css
+extraJs:
+  - /js/faq.js
+  - /js/buyback-modal.js
 ---
 
-<div class="py-6">
-  <!-- Content will be implemented later -->
-</div>
+{% from "components/page-banner.njk" import pageBanner %}
+
+{{ pageBanner(
+  bannerUrl = "/img/bg-thu-mua.webp",
+  title = "Thu mua đồ cũ",
+  desc = "Biến đồ cũ thành giá trị mới! ReeUsed thu mua đa dạng các sản phẩm: điện thoại, laptop, máy tính bảng, đồng hồ, máy ảnh, đồ gia dụng...",
+  options = {
+    titleHighlight: "Nhanh chóng - giá tốt",
+    alt: "Thu mua đồ cũ ReeUsed",
+    breadcrumbTitle: "Muốn bán",
+    stats: [
+      { icon: "bolt", value: "Định giá nhanh", label: "Chỉ trong 5 phút" },
+      { icon: "coin", value: "Thanh toán ngay", label: "An toàn, minh bạch" },
+      { icon: "location", value: "Thu mua tận nơi", label: "Toàn quốc" }
+    ],
+    hasGradient: true,
+    cta: {
+      text: "Đăng ký thu mua ngay",
+      url: "/lien-he/",
+      icon: "send",
+      modal: "buyback-modal"
+    }
+  }
+) }}
+
+
+
+{% include "components/sell/process.njk" %}
+
+
+{% include "components/sell/categories.njk" %}
+
+
+{% include "components/sell/methods.njk" %}
+
+
+{% include "components/sell/faq.njk" %}
+
+
+<!-- Modal Đăng ký thu mua -->
+{% include "components/sell/buyback-modal.njk" %}

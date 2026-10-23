@@ -2,57 +2,68 @@
   {
     "value": "dien-thoai",
     "label": "Điện thoại",
-    "icon": "/img/categories/phone.svg"
+    "icon": "/img/categories/phone.svg",
+    "image": "/img/categories/dien-thoai.webp"
   },
   {
     "value": "may-tinh-bang",
     "label": "Máy tính bảng",
-    "icon": "/img/categories/tablet.svg"
+    "icon": "/img/categories/tablet.svg",
+    "image": "/img/categories/may-tinh-bang.webp"
   },
   {
     "value": "may-tinh",
     "label": "Máy tính",
-    "icon": "/img/categories/laptop.svg"
+    "icon": "/img/categories/laptop.svg",
+    "image": "/img/categories/may-tinh.webp"
   },
   {
     "value": "tai-nghe",
     "label": "Tai nghe",
-    "icon": "/img/categories/headphones.svg"
+    "icon": "/img/categories/headphones.svg",
+    "image": "/img/categories/tai-nghe.webp"
   },
-  { "value": "loa", "label": "Loa", "icon": "/img/categories/speaker.svg" },
+  { "value": "loa", "label": "Loa", "icon": "/img/categories/speaker.svg", "image": "/img/categories/loa.webp" },
   {
     "value": "dong-ho-thong-minh",
     "label": "Đồng hồ thông minh",
-    "icon": "/img/categories/smartwatch.svg"
+    "icon": "/img/categories/smartwatch.svg",
+    "image": "/img/categories/dong-ho-thong-minh.webp"
   },
   {
     "value": "dong-ho",
     "label": "Đồng hồ",
-    "icon": "/img/categories/watch.svg"
+    "icon": "/img/categories/watch.svg",
+    "image": "/img/categories/dong-ho.webp"
   },
   {
     "value": "man-hinh-cu",
     "label": "Màn hình cũ",
-    "icon": "/img/categories/monitor.svg"
+    "icon": "/img/categories/monitor.svg",
+    "image": "/img/categories/man-hinh.webp"
   },
   {
     "value": "phu-kien",
     "label": "Phụ kiện",
-    "icon": "/img/categories/accessories.svg"
+    "icon": "/img/categories/accessories.svg",
+    "image": "/img/categories/phu-kien.webp"
   },
   {
     "value": "may-anh",
     "label": "Máy ảnh",
-    "icon": "/img/categories/camera.svg"
+    "icon": "/img/categories/camera.svg",
+    "image": "/img/categories/may-anh-ong-kinh.webp"
   },
   {
     "value": "may-choi-game",
     "label": "Máy chơi game",
-    "icon": "/img/categories/gamepad.svg"
+    "icon": "/img/categories/gamepad.svg",
+    "image": "/img/categories/may-choi-game.webp"
   },
   {
     "value": "do-gia-dung",
     "label": "Đồ gia dụng",
-    "icon": "/img/categories/home-appliances.svg"
+    "icon": "/img/categories/home-appliances.svg",
+    "image": "/img/categories/do-gia-dung.webp"
   }
 ]
