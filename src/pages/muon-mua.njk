@@ -1,9 +1,31 @@
----
+﻿---
 title: Muốn mua
+description: Khám phá hàng nghìn sản phẩm cũ chất lượng tốt giá hợp lý tại ReeUsed. Điện thoại, laptop, đồ gia dụng, nội thất,... với bảo hành uy tín.
 layout: layouts/base.njk
 permalink: /muon-mua/
+extraJs:
+  - /js/product-list.js
 ---
 
-<div class="py-6">
-  <!-- Content will be implemented later -->
-</div>
+{% from "components/page-banner.njk" import pageBanner %}
+
+{{ pageBanner(
+  bannerUrl = "/img/bg-muon-mua.webp",
+  title = "Khám phá sản phẩm cũ",
+  desc = "Từ điện thoại, laptop, đồ gia dụng, nội thất đến nhiều danh mục khác — ReeUsed mang đến hàng nghìn món đồ chất lượng tốt với giá hợp lý mỗi ngày.",
+  options = {
+    titleHighlight: "Chất lượng giá tốt mỗi ngày",
+    alt: "Mua đồ cũ chất lượng tốt giá hợp lý tại ReeUsed",
+    breadcrumbTitle: "Muốn mua",
+    stats: [
+      { icon: "package", value: "Hàng nghìn sản phẩm", label: "Đa dạng danh mục" },
+      { icon: "coin", value: "Giá tốt mỗi ngày", label: "Tiết kiệm đến 50%" },
+      { icon: "shield-check", value: "Bảo hành uy tín", label: "Cam kết chất lượng" }
+    ],
+    hasGradient: true
+  }
+) }}
+
+<!-- Danh sách sản phẩm -->
+{% set products = saleProducts %}
+{% include "components/buy/product-list.njk" %}

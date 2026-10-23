@@ -1,0 +1,143 @@
+{% from "components/icon.njk" import icon %}
+{% from "components/input.njk" import input %}
+{% from "components/form-select.njk" import formSelect %}
+{% from "components/product-item.njk" import productItem %}
+
+<!-- Danh sách sản phẩm: danh mục slider + tìm kiếm/sắp xếp + product grid -->
+<section class="py-8 sm:py-10">
+  <!-- Header -->
+  <div class="mb-5 sm:mb-7">
+    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
+      Danh sách sản phẩm
+    </h2>
+    <p class="text-xs sm:text-sm text-gray-500 mt-1">
+      Tìm kiếm và lọc sản phẩm theo danh mục, giá cả và tên.
+    </p>
+  </div>
+
+  <!-- Category slider -->
+  <div class="relative mb-6 sm:mb-8">
+    <!-- Prev button -->
+    <button
+      type="button"
+      id="cat-prev"
+      class="flex absolute left-0 top-[18px] sm:top-6 md:top-8 z-10 w-7 h-7 sm:w-8 sm:h-8 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:text-primary hover:border-primary transition-colors"
+      aria-label="Danh mục trước"
+    >
+      {{ icon("chevron-left", "w-3.5 h-3.5 sm:w-4 sm:h-4") }}
+    </button>
+
+    <!-- Slider track -->
+    <div
+      id="cat-slider"
+      class="flex gap-4 sm:gap-8 overflow-x-auto scroll-smooth px-8 sm:px-10"
+      style="scrollbar-width: none; -ms-overflow-style: none;"
+    >
+      <!-- All categories button -->
+      <button
+        type="button"
+        data-category=""
+        class="cat-chip shrink-0 flex flex-col items-center cursor-pointer select-none"
+      >
+        <div class="cat-chip-circle w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 aspect-square rounded-full bg-primary flex items-center justify-center p-2.5 sm:p-3 md:p-4 transition-all duration-300 mx-auto">
+          {{ icon("tag", "w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white") }}
+        </div>
+        <span class="cat-chip-label inline-block mt-1.5 sm:mt-2 text-[10px] sm:text-xs font-bold text-primary text-center leading-snug max-w-[80px] sm:max-w-[100px]">
+          Tất cả
+        </span>
+      </button>
+
+      {% for cat in categories %}
+        <button
+          type="button"
+          data-category="{{ cat.label }}"
+          class="cat-chip shrink-0 flex flex-col items-center cursor-pointer select-none"
+        >
+          <div class="cat-chip-circle w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 aspect-square rounded-full bg-[#e5f3ea] flex items-center justify-center p-2.5 sm:p-3 md:p-4 transition-all duration-300 mx-auto">
+            {% if cat.image or cat.icon %}
+              <img
+                src="{{ cat.image or cat.icon }}"
+                alt="{{ cat.label }}"
+                class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain transition-transform duration-300"
+                width="256"
+                height="256"
+                loading="lazy"
+              >
+            {% else %}
+              <span class="w-3 h-3 rounded-full bg-primary/40 transition-colors"></span>
+            {% endif %}
+          </div>
+          <span class="cat-chip-label inline-block mt-1.5 sm:mt-2 text-[10px] sm:text-xs font-bold text-gray-800 text-center leading-snug max-w-[80px] sm:max-w-[100px]">
+            {{ cat.label }}
+          </span>
+        </button>
+      {% endfor %}
+    </div>
+
+    <!-- Next button -->
+    <button
+      type="button"
+      id="cat-next"
+      class="flex absolute right-0 top-[18px] sm:top-6 md:top-8 z-10 w-7 h-7 sm:w-8 sm:h-8 items-center justify-center rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:text-primary hover:border-primary transition-colors"
+      aria-label="Danh mục sau"
+    >
+      {{ icon("chevron-right", "w-3.5 h-3.5 sm:w-4 sm:h-4") }}
+    </button>
+  </div>
+
+  <!-- Search + Sort -->
+  <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8">
+    <div class="flex-1">
+      {{ input(
+        name = "search",
+        id = "product-search",
+        label = "Tìm kiếm",
+        type = "text",
+        placeholder = "Tìm kiếm sản phẩm...",
+        required = false
+      ) }}
+    </div>
+    <div class="sm:w-56">
+      {{ formSelect(
+        name = "sort",
+        id = "product-sort",
+        label = "Sắp xếp",
+        placeholder = "Mặc định",
+        options = [
+          { value: "default", label: "Mặc định" },
+          { value: "name-asc", label: "Tên A → Z" },
+          { value: "name-desc", label: "Tên Z → A" },
+          { value: "price-asc", label: "Giá tăng dần" },
+          { value: "price-desc", label: "Giá giảm dần" }
+        ],
+        required = false
+      ) }}
+    </div>
+  </div>
+
+  <!-- Product count -->
+  <div class="mb-3 sm:mb-4">
+    <p class="text-xs sm:text-sm text-gray-500">
+      Hiển thị <span id="product-count" class="font-bold text-gray-900">{{ products | length }}</span> sản phẩm
+    </p>
+  </div>
+
+  <!-- Product grid -->
+  <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+    {% for product in products %}
+      <div
+        class="product-card"
+        data-category="{{ product.category }}"
+        data-name="{{ product.name | lower }}"
+        data-price="{{ product.price | replace('.', '') | replace('₫', '') | trim }}"
+      >
+        {{ productItem(product, badgeType="auto", showOriginalPrice=true) }}
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Empty state -->
+  <div id="product-empty" class="hidden py-12 text-center">
+    <p class="text-sm text-gray-500">Không tìm thấy sản phẩm phù hợp.</p>
+  </div>
+</section>
