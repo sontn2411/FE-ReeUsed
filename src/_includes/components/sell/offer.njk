@@ -1,0 +1,48 @@
+{% from "components/icon.njk" import icon %}
+
+<!-- Mua bán đồ cũ: thông tin + họa tiết absolute góc phải dưới -->
+<section class="relative py-6 sm:py-8 bg-[#e5f3ea] min-h-72">
+  <div class="container mx-auto px-4 sm:px-6 lg:pl-8 lg:pr-0">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-start">
+      <!-- Bên trái: khối 1 (content) + khối 2 (CTA) -->
+      <div class="md:col-span-2 flex flex-col gap-6 sm:gap-8 items-start">
+        <!-- Khối 1: content -->
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">
+            {{ buybackOffer.title }}
+          </h2>
+          <p class="text-sm sm:text-base text-gray-600 mt-1 font-medium">
+            {{ buybackOffer.subtitle }}
+          </p>
+          <p class="text-xs sm:text-sm text-gray-700 mt-1 leading-relaxed">
+            {{ buybackOffer.desc }}
+          </p>
+        </div>
+
+        <!-- Khối 2: contact button cta -->
+        <div class="flex flex-col items-center gap-3 sm:gap-4">
+          <a
+            href="tel:{{ contact.hotline | replace(' ', '') }}"
+            class="inline-flex items-center justify-center gap-2 bg-primary text-white font-bold text-sm sm:text-base px-6 py-3 rounded-xl shadow-lg hover:bg-[#07332e] hover:shadow-xl transition-all duration-200 active:scale-[0.98]"
+          >
+            {{ icon("phone", "w-4 h-4") }}
+            {{ contact.hotline }}
+          </a>
+        </div>
+      </div>
+
+      <!-- Bên phải: trống cho họa tiết -->
+      <div class="hidden md:block"></div>
+    </div>
+  </div>
+
+  <!-- Họa tiết absolute góc phải dưới -->
+  <img
+    src="/img/offset-01.webp"
+    alt="Họa tiết trang trí"
+    class="absolute bottom-0 right-0 h-[200px] sm:h-[240px] w-auto object-contain pointer-events-none opacity-20 md:opacity-100"
+    width="800"
+    height="600"
+    loading="lazy"
+  >
+</section>
